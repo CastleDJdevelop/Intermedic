@@ -1,0 +1,232 @@
+{
+  "products": [
+    {
+      "id": "p1",
+      "sku": "MON-V8",
+      "barcode": "7501234500019",
+      "name": "Monitor de Signos Vitales Serie V8",
+      "category": "Monitores",
+      "brand": "Mindray",
+      "supplier": "Mindray Latinoamérica",
+      "unit": "unidad",
+      "price": null,
+      "costProm": 9725,
+      "ultimoCosto": 10100,
+      "stockMin": 3,
+      "stockMax": 12,
+      "serialized": true,
+      "warehouses": {
+        "Bodega Central": 4,
+        "Sucursal Zona 10": 3
+      },
+      "badge": "Destacado",
+      "usage": "Nuevo",
+      "description": "Monitor multiparamétrico de cabecera con pantalla táctil de 12.1\", medición no invasiva de SpO2, ECG, PANI, temperatura y respiración."
+    },
+    {
+      "id": "p5",
+      "sku": "AUT-24L",
+      "barcode": "7501234500057",
+      "name": "Autoclave de Mesa 24L",
+      "category": "Esterilizadores",
+      "brand": "Getinge",
+      "supplier": "Getinge Sales GT",
+      "unit": "unidad",
+      "price": 24900,
+      "costProm": 23200,
+      "ultimoCosto": 24900,
+      "stockMin": 1,
+      "stockMax": 5,
+      "serialized": false,
+      "warehouses": {
+        "Sucursal Zona 10": 1,
+        "Sucursal Quetzaltenango": 1
+      },
+      "badge": null,
+      "usage": "Nuevo",
+      "description": "Autoclave de mesa de clase B para esterilización de instrumental sólido, hueco y textiles, con ciclos programables."
+    },
+    {
+      "id": "p7",
+      "sku": "SIL-ORT",
+      "barcode": "7501234500071",
+      "name": "Silla de Ruedas Ortopédica Reforzada",
+      "category": "Ortopedia",
+      "brand": "Genérico",
+      "supplier": "Textiles Médicos S.A.",
+      "unit": "unidad",
+      "price": 1450,
+      "costProm": 1350,
+      "ultimoCosto": 1450,
+      "stockMin": 3,
+      "stockMax": 15,
+      "serialized": false,
+      "warehouses": {
+        "Bodega Central": 6,
+        "Sucursal Quetzaltenango": 3
+      },
+      "badge": null,
+      "usage": "Nuevo",
+      "description": "Silla de ruedas plegable de estructura reforzada en acero, apoyapiés removibles y frenos de seguridad."
+    },
+    {
+      "id": "p10",
+      "sku": "GUA-NIT",
+      "barcode": "7501234500101",
+      "name": "Guantes de Nitrilo sin Polvo (Caja 100)",
+      "category": "Material descartable",
+      "brand": "3M",
+      "supplier": "3M Guatemala",
+      "unit": "caja",
+      "price": 85,
+      "costProm": 79,
+      "ultimoCosto": 82,
+      "stockMin": 50,
+      "stockMax": 300,
+      "serialized": false,
+      "warehouses": {
+        "Bodega Central": 22,
+        "Sucursal Zona 10": 20
+      },
+      "badge": null,
+      "usage": "Nuevo",
+      "description": "Guantes de examinación de nitrilo, sin polvo, alta resistencia a punción."
+    },
+    {
+      "id": "p12",
+      "sku": "DEA-AUT",
+      "barcode": "7501234500125",
+      "name": "Desfibrilador Externo Automático (DEA)",
+      "category": "Diagnóstico",
+      "brand": "Philips",
+      "supplier": "Philips Healthcare GT",
+      "unit": "unidad",
+      "price": null,
+      "costProm": 26800,
+      "ultimoCosto": 28000,
+      "stockMin": 2,
+      "stockMax": 8,
+      "serialized": true,
+      "warehouses": {
+        "Sucursal Zona 10": 2,
+        "Sucursal Escuintla": 2
+      },
+      "badge": "Nuevo",
+      "usage": "Nuevo",
+      "description": "DEA de uso público y clínico con instrucciones por voz y autoanálisis de ritmo."
+    }
+  ],
+  "companies": [
+    {
+      "id": "c1",
+      "name": "Hospital Regional Altiplano",
+      "sector": "Hospital",
+      "city": "Quetzaltenango",
+      "rep": "Ana López"
+    },
+    {
+      "id": "c2",
+      "name": "Clínica Vida Nueva",
+      "sector": "Clínica",
+      "city": "Ciudad de Guatemala",
+      "rep": "Carlos Méndez"
+    },
+    {
+      "id": "c7",
+      "name": "Hospital Privado del Valle",
+      "sector": "Hospital",
+      "city": "Ciudad de Guatemala",
+      "rep": "María Fernanda Ruiz"
+    }
+  ],
+  "contacts": [
+    {
+      "id": "ct1",
+      "name": "Rodrigo Paz",
+      "role": "Jefe de Compras",
+      "companyId": "c1",
+      "email": "rpaz@altiplano.gt",
+      "phone": "+502 5511 2201"
+    },
+    {
+      "id": "ct2",
+      "name": "Elena Sian",
+      "role": "Administradora",
+      "companyId": "c2",
+      "email": "esian@vidanueva.gt",
+      "phone": "+502 4433 8890"
+    }
+  ],
+  "leads": [],
+  "deals": [
+    {
+      "id": "d1",
+      "title": "Monitores de signos vitales x8",
+      "companyId": "c1",
+      "contactId": "ct1",
+      "value": 77800,
+      "stage": "Negociación",
+      "rep": "Ana López",
+      "closeDate": "2026-08-10"
+    }
+  ],
+  "quotes": [],
+  "movements": [
+    {
+      "id": "m1",
+      "date": "2026-01-05",
+      "type": "Entrada",
+      "productId": "p1",
+      "qty": 5,
+      "from": null,
+      "to": "Bodega Central",
+      "cost": 9500,
+      "ref": "Migración inicial de inventario",
+      "user": "Rebeca Ixchel"
+    },
+    {
+      "id": "m2",
+      "date": "2026-06-10",
+      "type": "Entrada",
+      "productId": "p1",
+      "qty": 3,
+      "from": null,
+      "to": "Sucursal Zona 10",
+      "cost": 10100,
+      "ref": "OC-1187 — Mindray Latinoamérica",
+      "user": "Marvin Say"
+    },
+    {
+      "id": "m3",
+      "date": "2026-01-05",
+      "type": "Entrada",
+      "productId": "p10",
+      "qty": 42,
+      "from": null,
+      "to": "Bodega Central",
+      "cost": 79,
+      "ref": "Migración inicial de inventario",
+      "user": "Rebeca Ixchel"
+    }
+  ],
+  "users": [
+    {
+      "id": "u1",
+      "username": "rixchel",
+      "name": "Rebeca Ixchel",
+      "role": "Administrador"
+    },
+    {
+      "id": "u2",
+      "username": "msay",
+      "name": "Marvin Say",
+      "role": "Vendedor"
+    },
+    {
+      "id": "u3",
+      "username": "opineda",
+      "name": "Óscar Pineda",
+      "role": "Vendedor"
+    }
+  ]
+}
