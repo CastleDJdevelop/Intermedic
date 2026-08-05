@@ -14,6 +14,9 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
     const result = markDealWon(id, body.warehouse ?? "Bodega Central");
     return NextResponse.json(result);
   } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 404 });
+    // 404 solo si el negocio no existe; cualquier otro rechazo (p.ej. stock
+    // insuficiente) es un conflicto de negocio, no un "no encontrado".
+    const status = e.message === "Negocio no encontrado" ? 404 : 409;
+    return NextResponse.json({ error: e.message }, { status });
   }
 }

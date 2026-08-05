@@ -108,17 +108,42 @@ export function markDealWon(dealId: string, warehouse: Warehouse = "Bodega Centr
   const deal = db.deals.find((d) => d.id === dealId);
   if (!deal) throw new Error("Negocio no encontrado");
 
+  const quote = deal.quoteId ? db.quotes.find((q) => q.id === deal.quoteId) : undefined;
+
+  // Validación de stock — ANTES de tocar deal/quote/products/movements.
+  // Si cualquier línea no alcanza, no se modifica nada (ver saveDB() al final:
+  // solo se llama una vez, después de que todas las líneas ya se validaron).
+  if (quote) {
+    const shortages: string[] = [];
+    for (const item of quote.items) {
+      const product = db.products.find((p) => p.id === item.productId);
+      if (!product) continue; // producto inexistente: se ignora, igual que antes
+      const available = product.warehouses[warehouse] ?? 0;
+      if (available < item.qty) {
+        shortages.push(
+          `${product.name} (SKU ${product.sku}): solicitado ${item.qty}, disponible ${available} en "${warehouse}"`
+        );
+      }
+    }
+    if (shortages.length > 0) {
+      // Una sola línea (sin \n) para que el mensaje se muestre correctamente
+      // en la UI existente del CRM sin tener que modificarla.
+      throw new Error(`Stock insuficiente en "${warehouse}" para completar la venta: ${shortages.join(" · ")}`);
+    }
+  }
+
+  // A partir de aquí toda la Quote (si existe) ya está validada — es seguro mutar.
   deal.stage = "Ganado";
   const createdMovements: Movement[] = [];
 
-  const quote = deal.quoteId ? db.quotes.find((q) => q.id === deal.quoteId) : undefined;
   if (quote) {
     quote.status = "Aprobada";
     for (const item of quote.items) {
       const product = db.products.find((p) => p.id === item.productId);
       if (!product) continue;
-      const available = product.warehouses[warehouse] ?? 0;
-      product.warehouses[warehouse] = Math.max(0, available - item.qty);
+      // Ya se validó arriba que hay suficiente — no se usa Math.max(0, ...)
+      // para no enmascarar un faltante real.
+      product.warehouses[warehouse] = (product.warehouses[warehouse] ?? 0) - item.qty;
 
       const movement: Movement = {
         id: newId("mov"),
@@ -152,31 +177,119 @@ export function getPublicCatalog(): Product[] {
   return db.products;
 }
 
+const WAREHOUSE_NAMES: Warehouse[] = ["Bodega Central", "Sucursal Zona 10", "Sucursal Quetzaltenango", "Sucursal Escuintla"];
+const MOVEMENT_TYPES: Movement["type"][] = ["Entrada", "Salida", "Transferencia", "Ajuste"];
+
+/**
+ * Registra un movimiento y actualiza `product.warehouses` en el mismo paso.
+ * Toda la validación de negocio vive aquí (no en la ruta API ni en la UI),
+ * siguiendo el mismo patrón que markDealWon(): se valida TODO antes de mutar
+ * nada, y saveDB() se llama una sola vez al final — así un movimiento nunca
+ * queda a medias ni descuenta stock que en realidad no existía (ya no se usa
+ * Math.max(0, ...) para enmascarar un faltante).
+ */
 export function applyMovement(m: Omit<Movement, "id">): Movement {
   const db = getDB();
   const product = db.products.find((p) => p.id === m.productId);
   if (!product) throw new Error("Producto no encontrado");
+  if (!MOVEMENT_TYPES.includes(m.type)) throw new Error("Tipo de movimiento inválido");
 
-  if (m.type === "Entrada" || (m.type === "Ajuste" && m.qty > 0)) {
-    const qty = Math.abs(m.qty);
+  const qty = Math.abs(m.qty);
+  if (!Number.isFinite(qty) || qty <= 0) throw new Error("La cantidad debe ser un número mayor a 0");
+
+  const isEntradaLike = m.type === "Entrada" || (m.type === "Ajuste" && m.qty > 0);
+  const isSalidaLike = m.type === "Salida" || (m.type === "Ajuste" && m.qty < 0);
+
+  if (isEntradaLike) {
+    if (!m.to) throw new Error(`${m.type} requiere una bodega destino`);
+    if (!WAREHOUSE_NAMES.includes(m.to)) throw new Error(`Bodega destino inválida: "${m.to}"`);
+  } else if (isSalidaLike) {
+    if (!m.from) throw new Error(`${m.type} requiere una bodega de origen`);
+    if (!WAREHOUSE_NAMES.includes(m.from)) throw new Error(`Bodega origen inválida: "${m.from}"`);
+    const available = product.warehouses[m.from] ?? 0;
+    if (available < qty) throw new Error(`Stock insuficiente en "${m.from}": disponible ${available}, solicitado ${qty}`);
+  } else if (m.type === "Transferencia") {
+    if (!m.from) throw new Error("La transferencia requiere una bodega de origen");
+    if (!m.to) throw new Error("La transferencia requiere una bodega de destino");
+    if (!WAREHOUSE_NAMES.includes(m.from)) throw new Error(`Bodega origen inválida: "${m.from}"`);
+    if (!WAREHOUSE_NAMES.includes(m.to)) throw new Error(`Bodega destino inválida: "${m.to}"`);
+    if (m.from === m.to) throw new Error("El origen y el destino de una transferencia deben ser distintos");
+    const available = product.warehouses[m.from] ?? 0;
+    if (available < qty) throw new Error(`Stock insuficiente en "${m.from}": disponible ${available}, solicitado ${qty}`);
+  }
+
+  // A partir de aquí el movimiento ya está completamente validado.
+  if (isEntradaLike) {
     const oldTotal = totalStock(product);
     const cost = m.cost ?? product.costProm;
     product.costProm = oldTotal + qty === 0 ? cost : (oldTotal * product.costProm + qty * cost) / (oldTotal + qty);
     if (m.cost) product.ultimoCosto = cost;
-    if (m.to) product.warehouses[m.to] = (product.warehouses[m.to] ?? 0) + qty;
-  } else if (m.type === "Salida" || (m.type === "Ajuste" && m.qty < 0)) {
-    const qty = Math.abs(m.qty);
-    if (m.from) product.warehouses[m.from] = Math.max(0, (product.warehouses[m.from] ?? 0) - qty);
+    product.warehouses[m.to!] = (product.warehouses[m.to!] ?? 0) + qty;
+  } else if (isSalidaLike) {
+    product.warehouses[m.from!] = (product.warehouses[m.from!] ?? 0) - qty;
   } else if (m.type === "Transferencia") {
-    const qty = Math.abs(m.qty);
-    if (m.from) product.warehouses[m.from] = Math.max(0, (product.warehouses[m.from] ?? 0) - qty);
-    if (m.to) product.warehouses[m.to] = (product.warehouses[m.to] ?? 0) + qty;
+    product.warehouses[m.from!] = (product.warehouses[m.from!] ?? 0) - qty;
+    product.warehouses[m.to!] = (product.warehouses[m.to!] ?? 0) + qty;
   }
 
   const movement: Movement = { ...m, id: newId("mov") };
   db.movements.push(movement);
   saveDB(db);
   return movement;
+}
+
+/**
+ * Edita únicamente los campos comerciales del producto que Inventario debe
+ * poder corregir a mano (precio, costo, mínimos/máximos) — no toca
+ * `warehouses` (eso solo lo cambia applyMovement) ni crea un movimiento.
+ */
+export function updateProduct(id: string, patch: {
+  price?: number | null;
+  costProm?: number;
+  stockMin?: number;
+  stockMax?: number;
+  published?: boolean;
+}): Product {
+  const db = getDB();
+  const product = db.products.find((p) => p.id === id);
+  if (!product) throw new Error("Producto no encontrado");
+
+  if (patch.published !== undefined) {
+    if (typeof patch.published !== "boolean") {
+      throw new Error("published debe ser un valor booleano");
+    }
+    product.published = patch.published;
+  }
+  if (patch.price !== undefined) {
+    if (patch.price !== null && (typeof patch.price !== "number" || !Number.isFinite(patch.price) || patch.price < 0)) {
+      throw new Error("El precio debe ser un número mayor o igual a 0");
+    }
+    product.price = patch.price;
+  }
+  if (patch.costProm !== undefined) {
+    if (typeof patch.costProm !== "number" || !Number.isFinite(patch.costProm) || patch.costProm < 0) {
+      throw new Error("El costo promedio debe ser un número mayor o igual a 0");
+    }
+    product.costProm = patch.costProm;
+  }
+  if (patch.stockMin !== undefined) {
+    if (typeof patch.stockMin !== "number" || !Number.isFinite(patch.stockMin) || patch.stockMin < 0) {
+      throw new Error("El stock mínimo debe ser un número mayor o igual a 0");
+    }
+    product.stockMin = patch.stockMin;
+  }
+  if (patch.stockMax !== undefined) {
+    if (typeof patch.stockMax !== "number" || !Number.isFinite(patch.stockMax) || patch.stockMax < 0) {
+      throw new Error("El stock máximo debe ser un número mayor o igual a 0");
+    }
+    product.stockMax = patch.stockMax;
+  }
+  if (product.stockMax < product.stockMin) {
+    throw new Error("El stock máximo no puede ser menor que el stock mínimo");
+  }
+
+  saveDB(db);
+  return product;
 }
 
 /* =========================================================================

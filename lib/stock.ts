@@ -1,4 +1,4 @@
-import type { Product } from "./types";
+import type { Product, Warehouse } from "./types";
 
 /**
  * Lógica de stock pura (sin fs/path) para que los componentes cliente del
@@ -17,4 +17,13 @@ export function stockStatus(product: Product): StockStatus {
   if (total <= 0) return "out";
   if (total <= product.stockMin) return "low";
   return "in";
+}
+
+/**
+ * Valor de inventario (qty × costo promedio). Sin `warehouse`, usa el stock
+ * total del producto; con `warehouse`, solo la existencia en esa bodega.
+ */
+export function inventoryValue(product: Product, warehouse?: Warehouse): number {
+  const qty = warehouse ? (product.warehouses[warehouse] ?? 0) : totalStock(product);
+  return qty * product.costProm;
 }
