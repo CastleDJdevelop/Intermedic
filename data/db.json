@@ -21,7 +21,92 @@
       },
       "badge": "Destacado",
       "usage": "Nuevo",
-      "description": "Monitor multiparamétrico de cabecera con pantalla táctil de 12.1\", medición no invasiva de SpO2, ECG, PANI, temperatura y respiración."
+      "description": "Monitor multiparamétrico de cabecera con pantalla táctil de 12.1\", medición no invasiva de SpO2, ECG, PANI, temperatura y respiración, pensado para áreas críticas y de hospitalización.",
+      "images": ["#0057D9", "#00B39E"],
+      "specs": [["Pantalla", "12.1\" táctil capacitiva"], ["Parámetros", "ECG, SpO2, PANI, Temp, Resp"], ["Batería", "Hasta 4 horas"], ["Conectividad", "HL7 / Red hospitalaria"], ["Peso", "4.8 kg"]],
+      "delivery": "5–7 días hábiles",
+      "published": true
+    },
+    {
+      "id": "p2",
+      "sku": "CAM-3P",
+      "barcode": "7501234500026",
+      "name": "Cama Hospitalaria Eléctrica 3 Posiciones",
+      "category": "Equipo hospitalario",
+      "brand": "Welch Allyn",
+      "supplier": "Welch Allyn Guatemala",
+      "unit": "unidad",
+      "price": 18500,
+      "costProm": 15800,
+      "ultimoCosto": 16200,
+      "stockMin": 1,
+      "stockMax": 6,
+      "serialized": true,
+      "warehouses": {
+        "Bodega Central": 2,
+        "Sucursal Escuintla": 1
+      },
+      "badge": null,
+      "usage": "Nuevo",
+      "description": "Cama hospitalaria de accionamiento eléctrico con ajuste de respaldo, elevación y posición Trendelenburg, barandales abatibles y ruedas con freno centralizado.",
+      "images": ["#0B1B2B", "#2C4A63"],
+      "specs": [["Posiciones", "3 motores eléctricos"], ["Capacidad", "180 kg"], ["Barandales", "Abatibles, aluminio"], ["Colchón", "Incluido, espuma alta densidad"], ["Garantía", "24 meses"]],
+      "delivery": "10–15 días hábiles",
+      "published": true
+    },
+    {
+      "id": "p3",
+      "sku": "SET-INS32",
+      "barcode": "7501234500033",
+      "name": "Set de Instrumental Quirúrgico General (32 pzs)",
+      "category": "Instrumental quirúrgico",
+      "brand": "B. Braun",
+      "supplier": "B. Braun Guatemala",
+      "unit": "set",
+      "price": 6200,
+      "costProm": 5100,
+      "ultimoCosto": 5300,
+      "stockMin": 2,
+      "stockMax": 10,
+      "serialized": false,
+      "warehouses": {
+        "Bodega Central": 5,
+        "Sucursal Zona 10": 2
+      },
+      "badge": null,
+      "usage": "Nuevo",
+      "description": "Set completo de instrumental en acero quirúrgico inoxidable para procedimientos generales, incluye estuche de esterilización rígido.",
+      "images": ["#00B39E", "#0057D9"],
+      "specs": [["Piezas", "32"], ["Material", "Acero inoxidable AISI 420"], ["Esterilización", "Autoclave a vapor"], ["Estuche", "Rígido, con bandeja perforada"]],
+      "delivery": "7–10 días hábiles",
+      "published": true
+    },
+    {
+      "id": "p4",
+      "sku": "ECO-DOP",
+      "barcode": "7501234500040",
+      "name": "Ecógrafo Portátil Doppler Color",
+      "category": "Diagnóstico",
+      "brand": "Mindray",
+      "supplier": "Mindray Latinoamérica",
+      "unit": "unidad",
+      "price": null,
+      "costProm": 41000,
+      "ultimoCosto": 43500,
+      "stockMin": 1,
+      "stockMax": 4,
+      "serialized": true,
+      "warehouses": {
+        "Bodega Central": 1,
+        "Sucursal Quetzaltenango": 1
+      },
+      "badge": "Destacado",
+      "usage": "Nuevo",
+      "description": "Sistema de ultrasonido portátil con Doppler color, ideal para consultorio, medicina general y urgencias. Incluye transductor convexo y lineal.",
+      "images": ["#0057D9", "#08131F"],
+      "specs": [["Transductores", "Convexo + lineal"], ["Pantalla", "15\" LED"], ["Modos", "B, M, Doppler color, PW"], ["Batería", "60 min de autonomía"]],
+      "delivery": "8–12 días hábiles",
+      "published": true
     },
     {
       "id": "p5",
@@ -44,7 +129,38 @@
       },
       "badge": null,
       "usage": "Nuevo",
-      "description": "Autoclave de mesa de clase B para esterilización de instrumental sólido, hueco y textiles, con ciclos programables."
+      "description": "Autoclave de mesa de clase B para esterilización de instrumental sólido, hueco y textiles, con ciclos programables e impresora integrada.",
+      "images": ["#08131F", "#00B39E"],
+      "specs": [["Capacidad", "24 litros"], ["Clase", "B (EN 13060)"], ["Ciclos", "6 programables"], ["Registro", "Impresora térmica integrada"]],
+      "delivery": "15–20 días hábiles",
+      "published": true
+    },
+    {
+      "id": "p6",
+      "sku": "VEN-TRANS",
+      "barcode": "7501234500064",
+      "name": "Ventilador de Transporte",
+      "category": "Equipo respiratorio",
+      "brand": "Dräger",
+      "supplier": "Dräger Medical GT",
+      "unit": "unidad",
+      "price": null,
+      "costProm": 52000,
+      "ultimoCosto": 54000,
+      "stockMin": 1,
+      "stockMax": 4,
+      "serialized": true,
+      "warehouses": {
+        "Sucursal Zona 10": 1,
+        "Bodega Central": 1
+      },
+      "badge": "Nuevo",
+      "usage": "Nuevo",
+      "description": "Ventilador compacto para transporte intra y extrahospitalario, con batería de larga duración y modos volumétricos y de presión.",
+      "images": ["#0057D9", "#2C4A63"],
+      "specs": [["Modos", "VCV, PCV, SIMV, CPAP"], ["Batería", "Hasta 8 horas"], ["Peso", "3.2 kg"], ["Alarmas", "Configurables, visuales y sonoras"]],
+      "delivery": "10–14 días hábiles",
+      "published": true
     },
     {
       "id": "p7",
@@ -67,7 +183,65 @@
       },
       "badge": null,
       "usage": "Nuevo",
-      "description": "Silla de ruedas plegable de estructura reforzada en acero, apoyapiés removibles y frenos de seguridad."
+      "description": "Silla de ruedas plegable de estructura reforzada en acero, apoyapiés removibles y frenos de seguridad en ambas ruedas traseras.",
+      "images": ["#00B39E", "#0B1B2B"],
+      "specs": [["Capacidad", "135 kg"], ["Estructura", "Acero reforzado"], ["Plegable", "Sí, tipo tijera"], ["Ruedas", "24\" traseras, giratorias delanteras"]],
+      "delivery": "3–5 días hábiles",
+      "published": true
+    },
+    {
+      "id": "p8",
+      "sku": "MIC-BIN",
+      "barcode": "7501234500088",
+      "name": "Microscopio Binocular de Laboratorio",
+      "category": "Equipo de laboratorio",
+      "brand": "Genérico",
+      "supplier": "Laboratorios Ópticos GT",
+      "unit": "unidad",
+      "price": 3800,
+      "costProm": 3100,
+      "ultimoCosto": 3250,
+      "stockMin": 2,
+      "stockMax": 8,
+      "serialized": false,
+      "warehouses": {
+        "Bodega Central": 4,
+        "Sucursal Quetzaltenango": 2
+      },
+      "badge": null,
+      "usage": "Nuevo",
+      "description": "Microscopio binocular para laboratorio clínico, óptica acromática, iluminación LED y revólver cuádruple.",
+      "images": ["#0B1B2B", "#0057D9"],
+      "specs": [["Oculares", "WF10x"], ["Objetivos", "4x, 10x, 40x, 100x"], ["Iluminación", "LED regulable"], ["Enfoque", "Coaxial macro/micrométrico"]],
+      "delivery": "5–8 días hábiles",
+      "published": true
+    },
+    {
+      "id": "p9",
+      "sku": "BOM-INF",
+      "barcode": "7501234500095",
+      "name": "Bomba de Infusión Volumétrica",
+      "category": "Cuidado del paciente",
+      "brand": "B. Braun",
+      "supplier": "B. Braun Guatemala",
+      "unit": "unidad",
+      "price": 5600,
+      "costProm": 3900,
+      "ultimoCosto": 4100,
+      "stockMin": 2,
+      "stockMax": 10,
+      "serialized": true,
+      "warehouses": {
+        "Bodega Central": 3,
+        "Sucursal Zona 10": 2
+      },
+      "badge": "Promoción",
+      "usage": "Reacondicionado",
+      "description": "Bomba de infusión volumétrica reacondicionada y certificada, con sistema de detección de aire y oclusión.",
+      "images": ["#00B39E", "#0057D9"],
+      "specs": [["Rango de flujo", "0.1–999 ml/h"], ["Detección de aire", "Sí"], ["Batería", "4 horas de respaldo"], ["Certificación", "Revisión técnica Intermedic"]],
+      "delivery": "5–7 días hábiles",
+      "published": true
     },
     {
       "id": "p10",
@@ -90,7 +264,38 @@
       },
       "badge": null,
       "usage": "Nuevo",
-      "description": "Guantes de examinación de nitrilo, sin polvo, alta resistencia a punción."
+      "description": "Guantes de examinación de nitrilo, sin polvo, alta resistencia a punción, disponibles en tallas S a XL.",
+      "images": ["#0057D9", "#00B39E"],
+      "specs": [["Material", "Nitrilo"], ["Empaque", "100 unidades"], ["Tallas", "S, M, L, XL"], ["Uso", "Examinación / no estéril"]],
+      "delivery": "2–4 días hábiles",
+      "published": true
+    },
+    {
+      "id": "p11",
+      "sku": "UNI-QUIR",
+      "barcode": "7501234500118",
+      "name": "Uniforme Quirúrgico Antifluido (Par)",
+      "category": "Uniformes médicos",
+      "brand": "Genérico",
+      "supplier": "Textiles Médicos S.A.",
+      "unit": "par",
+      "price": 210,
+      "costProm": 165,
+      "ultimoCosto": 172,
+      "stockMin": 20,
+      "stockMax": 150,
+      "serialized": false,
+      "warehouses": {
+        "Bodega Central": 40,
+        "Sucursal Escuintla": 15
+      },
+      "badge": null,
+      "usage": "Nuevo",
+      "description": "Conjunto de filipina y pantalón en tela antifluido, transpirable, disponible en varias tallas y colores institucionales.",
+      "images": ["#0B1B2B", "#00B39E"],
+      "specs": [["Tela", "Antifluido 65/35"], ["Piezas", "Filipina + pantalón"], ["Tallas", "XS a XXL"], ["Colores", "Bajo pedido institucional"]],
+      "delivery": "3–5 días hábiles",
+      "published": true
     },
     {
       "id": "p12",
@@ -113,7 +318,65 @@
       },
       "badge": "Nuevo",
       "usage": "Nuevo",
-      "description": "DEA de uso público y clínico con instrucciones por voz y autoanálisis de ritmo."
+      "description": "DEA de uso público y clínico con instrucciones por voz, autoanálisis de ritmo y electrodos de fácil colocación.",
+      "images": ["#0057D9", "#00B39E"],
+      "specs": [["Guía", "Instrucciones por voz"], ["Electrodos", "Adulto / pediátrico"], ["Autonomía batería", "Hasta 300 descargas / 4 años standby"], ["Certificación", "Uso clínico y público"]],
+      "delivery": "8–10 días hábiles",
+      "published": true
+    },
+    {
+      "id": "p13",
+      "sku": "CAM-EXPL",
+      "barcode": "7501234500132",
+      "name": "Camilla de Exploración Ajustable",
+      "category": "Mobiliario médico",
+      "brand": "Genérico",
+      "supplier": "Mobiliario Clínico GT",
+      "unit": "unidad",
+      "price": 4100,
+      "costProm": 3400,
+      "ultimoCosto": 3550,
+      "stockMin": 2,
+      "stockMax": 10,
+      "serialized": false,
+      "warehouses": {
+        "Bodega Central": 3,
+        "Sucursal Quetzaltenango": 2
+      },
+      "badge": null,
+      "usage": "Nuevo",
+      "description": "Camilla de exploración con respaldo ajustable, tapiz antibacterial y estructura metálica con acabado epóxico.",
+      "images": ["#0057D9", "#08131F"],
+      "specs": [["Respaldo", "Ajustable manual"], ["Capacidad", "160 kg"], ["Tapiz", "Antibacterial, sin costuras"], ["Rodapié", "Con papelera incluida"]],
+      "delivery": "6–9 días hábiles",
+      "published": true
+    },
+    {
+      "id": "p14",
+      "sku": "AND-PLEG",
+      "barcode": "7501234500149",
+      "name": "Andador Ortopédico Plegable",
+      "category": "Rehabilitación",
+      "brand": "Genérico",
+      "supplier": "Textiles Médicos S.A.",
+      "unit": "unidad",
+      "price": 690,
+      "costProm": 520,
+      "ultimoCosto": 540,
+      "stockMin": 5,
+      "stockMax": 30,
+      "serialized": false,
+      "warehouses": {
+        "Sucursal Escuintla": 4,
+        "Bodega Central": 3
+      },
+      "badge": null,
+      "usage": "Nuevo",
+      "description": "Andador plegable en aluminio ligero con altura ajustable, ideal para rehabilitación y apoyo en el adulto mayor.",
+      "images": ["#00B39E", "#0B1B2B"],
+      "specs": [["Material", "Aluminio"], ["Peso", "2.1 kg"], ["Altura", "Ajustable, 5 posiciones"], ["Capacidad", "120 kg"]],
+      "delivery": "3–5 días hábiles",
+      "published": true
     }
   ],
   "companies": [
@@ -157,7 +420,19 @@
       "phone": "+502 4433 8890"
     }
   ],
-  "leads": [],
+  "leads": [
+    {
+      "id": "lead_1785888799756_90",
+      "companyName": "Hospital Regional Altiplano",
+      "contactName": "Juan Pérez",
+      "email": "",
+      "source": "Sitio web",
+      "status": "Nuevo",
+      "rep": null,
+      "createdAt": "2026-08-05",
+      "productId": "p1"
+    }
+  ],
   "deals": [
     {
       "id": "d1",
@@ -170,7 +445,25 @@
       "closeDate": "2026-08-10"
     }
   ],
-  "quotes": [],
+  "quotes": [
+    {
+      "id": "quote_1785888799756_718",
+      "companyName": "Hospital Regional Altiplano",
+      "contactName": "Juan Pérez",
+      "items": [
+        {
+          "productId": "p1",
+          "qty": 1,
+          "unitPrice": 12642.5
+        }
+      ],
+      "total": 12643,
+      "status": "Borrador",
+      "rep": null,
+      "createdAt": "2026-08-05",
+      "leadId": "lead_1785888799756_90"
+    }
+  ],
   "movements": [
     {
       "id": "m1",

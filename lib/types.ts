@@ -31,6 +31,14 @@ export interface Product {
   badge?: "Nuevo" | "Promoción" | "Destacado" | null;
   usage?: "Nuevo" | "Reacondicionado";
   description?: string;
+  /** Par de colores para el gradiente de la ficha visual del sitio (no hay fotografía real todavía) */
+  images?: string[];
+  /** Especificaciones técnicas mostradas en la ficha de producto del sitio */
+  specs?: [string, string][];
+  /** Estimado de entrega mostrado en el sitio, ej. "5–7 días hábiles" */
+  delivery?: string;
+  /** Si es false, el producto existe en Inventario pero no se muestra en el sitio público */
+  published?: boolean;
 }
 
 export interface Company {
