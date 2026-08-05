@@ -22,8 +22,32 @@
       "badge": "Destacado",
       "usage": "Nuevo",
       "description": "Monitor multiparamétrico de cabecera con pantalla táctil de 12.1\", medición no invasiva de SpO2, ECG, PANI, temperatura y respiración, pensado para áreas críticas y de hospitalización.",
-      "images": ["#0057D9", "#00B39E"],
-      "specs": [["Pantalla", "12.1\" táctil capacitiva"], ["Parámetros", "ECG, SpO2, PANI, Temp, Resp"], ["Batería", "Hasta 4 horas"], ["Conectividad", "HL7 / Red hospitalaria"], ["Peso", "4.8 kg"]],
+      "images": [
+        "#0057D9",
+        "#00B39E"
+      ],
+      "specs": [
+        [
+          "Pantalla",
+          "12.1\" táctil capacitiva"
+        ],
+        [
+          "Parámetros",
+          "ECG, SpO2, PANI, Temp, Resp"
+        ],
+        [
+          "Batería",
+          "Hasta 4 horas"
+        ],
+        [
+          "Conectividad",
+          "HL7 / Red hospitalaria"
+        ],
+        [
+          "Peso",
+          "4.8 kg"
+        ]
+      ],
       "delivery": "5–7 días hábiles",
       "published": true
     },
@@ -49,8 +73,32 @@
       "badge": null,
       "usage": "Nuevo",
       "description": "Cama hospitalaria de accionamiento eléctrico con ajuste de respaldo, elevación y posición Trendelenburg, barandales abatibles y ruedas con freno centralizado.",
-      "images": ["#0B1B2B", "#2C4A63"],
-      "specs": [["Posiciones", "3 motores eléctricos"], ["Capacidad", "180 kg"], ["Barandales", "Abatibles, aluminio"], ["Colchón", "Incluido, espuma alta densidad"], ["Garantía", "24 meses"]],
+      "images": [
+        "#0B1B2B",
+        "#2C4A63"
+      ],
+      "specs": [
+        [
+          "Posiciones",
+          "3 motores eléctricos"
+        ],
+        [
+          "Capacidad",
+          "180 kg"
+        ],
+        [
+          "Barandales",
+          "Abatibles, aluminio"
+        ],
+        [
+          "Colchón",
+          "Incluido, espuma alta densidad"
+        ],
+        [
+          "Garantía",
+          "24 meses"
+        ]
+      ],
       "delivery": "10–15 días hábiles",
       "published": true
     },
@@ -76,8 +124,28 @@
       "badge": null,
       "usage": "Nuevo",
       "description": "Set completo de instrumental en acero quirúrgico inoxidable para procedimientos generales, incluye estuche de esterilización rígido.",
-      "images": ["#00B39E", "#0057D9"],
-      "specs": [["Piezas", "32"], ["Material", "Acero inoxidable AISI 420"], ["Esterilización", "Autoclave a vapor"], ["Estuche", "Rígido, con bandeja perforada"]],
+      "images": [
+        "#00B39E",
+        "#0057D9"
+      ],
+      "specs": [
+        [
+          "Piezas",
+          "32"
+        ],
+        [
+          "Material",
+          "Acero inoxidable AISI 420"
+        ],
+        [
+          "Esterilización",
+          "Autoclave a vapor"
+        ],
+        [
+          "Estuche",
+          "Rígido, con bandeja perforada"
+        ]
+      ],
       "delivery": "7–10 días hábiles",
       "published": true
     },
@@ -103,8 +171,28 @@
       "badge": "Destacado",
       "usage": "Nuevo",
       "description": "Sistema de ultrasonido portátil con Doppler color, ideal para consultorio, medicina general y urgencias. Incluye transductor convexo y lineal.",
-      "images": ["#0057D9", "#08131F"],
-      "specs": [["Transductores", "Convexo + lineal"], ["Pantalla", "15\" LED"], ["Modos", "B, M, Doppler color, PW"], ["Batería", "60 min de autonomía"]],
+      "images": [
+        "#0057D9",
+        "#08131F"
+      ],
+      "specs": [
+        [
+          "Transductores",
+          "Convexo + lineal"
+        ],
+        [
+          "Pantalla",
+          "15\" LED"
+        ],
+        [
+          "Modos",
+          "B, M, Doppler color, PW"
+        ],
+        [
+          "Batería",
+          "60 min de autonomía"
+        ]
+      ],
       "delivery": "8–12 días hábiles",
       "published": true
     },
@@ -130,8 +218,28 @@
       "badge": null,
       "usage": "Nuevo",
       "description": "Autoclave de mesa de clase B para esterilización de instrumental sólido, hueco y textiles, con ciclos programables e impresora integrada.",
-      "images": ["#08131F", "#00B39E"],
-      "specs": [["Capacidad", "24 litros"], ["Clase", "B (EN 13060)"], ["Ciclos", "6 programables"], ["Registro", "Impresora térmica integrada"]],
+      "images": [
+        "#08131F",
+        "#00B39E"
+      ],
+      "specs": [
+        [
+          "Capacidad",
+          "24 litros"
+        ],
+        [
+          "Clase",
+          "B (EN 13060)"
+        ],
+        [
+          "Ciclos",
+          "6 programables"
+        ],
+        [
+          "Registro",
+          "Impresora térmica integrada"
+        ]
+      ],
       "delivery": "15–20 días hábiles",
       "published": true
     },
@@ -157,8 +265,28 @@
       "badge": "Nuevo",
       "usage": "Nuevo",
       "description": "Ventilador compacto para transporte intra y extrahospitalario, con batería de larga duración y modos volumétricos y de presión.",
-      "images": ["#0057D9", "#2C4A63"],
-      "specs": [["Modos", "VCV, PCV, SIMV, CPAP"], ["Batería", "Hasta 8 horas"], ["Peso", "3.2 kg"], ["Alarmas", "Configurables, visuales y sonoras"]],
+      "images": [
+        "#0057D9",
+        "#2C4A63"
+      ],
+      "specs": [
+        [
+          "Modos",
+          "VCV, PCV, SIMV, CPAP"
+        ],
+        [
+          "Batería",
+          "Hasta 8 horas"
+        ],
+        [
+          "Peso",
+          "3.2 kg"
+        ],
+        [
+          "Alarmas",
+          "Configurables, visuales y sonoras"
+        ]
+      ],
       "delivery": "10–14 días hábiles",
       "published": true
     },
@@ -184,8 +312,28 @@
       "badge": null,
       "usage": "Nuevo",
       "description": "Silla de ruedas plegable de estructura reforzada en acero, apoyapiés removibles y frenos de seguridad en ambas ruedas traseras.",
-      "images": ["#00B39E", "#0B1B2B"],
-      "specs": [["Capacidad", "135 kg"], ["Estructura", "Acero reforzado"], ["Plegable", "Sí, tipo tijera"], ["Ruedas", "24\" traseras, giratorias delanteras"]],
+      "images": [
+        "#00B39E",
+        "#0B1B2B"
+      ],
+      "specs": [
+        [
+          "Capacidad",
+          "135 kg"
+        ],
+        [
+          "Estructura",
+          "Acero reforzado"
+        ],
+        [
+          "Plegable",
+          "Sí, tipo tijera"
+        ],
+        [
+          "Ruedas",
+          "24\" traseras, giratorias delanteras"
+        ]
+      ],
       "delivery": "3–5 días hábiles",
       "published": true
     },
@@ -211,8 +359,28 @@
       "badge": null,
       "usage": "Nuevo",
       "description": "Microscopio binocular para laboratorio clínico, óptica acromática, iluminación LED y revólver cuádruple.",
-      "images": ["#0B1B2B", "#0057D9"],
-      "specs": [["Oculares", "WF10x"], ["Objetivos", "4x, 10x, 40x, 100x"], ["Iluminación", "LED regulable"], ["Enfoque", "Coaxial macro/micrométrico"]],
+      "images": [
+        "#0B1B2B",
+        "#0057D9"
+      ],
+      "specs": [
+        [
+          "Oculares",
+          "WF10x"
+        ],
+        [
+          "Objetivos",
+          "4x, 10x, 40x, 100x"
+        ],
+        [
+          "Iluminación",
+          "LED regulable"
+        ],
+        [
+          "Enfoque",
+          "Coaxial macro/micrométrico"
+        ]
+      ],
       "delivery": "5–8 días hábiles",
       "published": true
     },
@@ -238,8 +406,28 @@
       "badge": "Promoción",
       "usage": "Reacondicionado",
       "description": "Bomba de infusión volumétrica reacondicionada y certificada, con sistema de detección de aire y oclusión.",
-      "images": ["#00B39E", "#0057D9"],
-      "specs": [["Rango de flujo", "0.1–999 ml/h"], ["Detección de aire", "Sí"], ["Batería", "4 horas de respaldo"], ["Certificación", "Revisión técnica Intermedic"]],
+      "images": [
+        "#00B39E",
+        "#0057D9"
+      ],
+      "specs": [
+        [
+          "Rango de flujo",
+          "0.1–999 ml/h"
+        ],
+        [
+          "Detección de aire",
+          "Sí"
+        ],
+        [
+          "Batería",
+          "4 horas de respaldo"
+        ],
+        [
+          "Certificación",
+          "Revisión técnica Intermedic"
+        ]
+      ],
       "delivery": "5–7 días hábiles",
       "published": true
     },
@@ -265,8 +453,28 @@
       "badge": null,
       "usage": "Nuevo",
       "description": "Guantes de examinación de nitrilo, sin polvo, alta resistencia a punción, disponibles en tallas S a XL.",
-      "images": ["#0057D9", "#00B39E"],
-      "specs": [["Material", "Nitrilo"], ["Empaque", "100 unidades"], ["Tallas", "S, M, L, XL"], ["Uso", "Examinación / no estéril"]],
+      "images": [
+        "#0057D9",
+        "#00B39E"
+      ],
+      "specs": [
+        [
+          "Material",
+          "Nitrilo"
+        ],
+        [
+          "Empaque",
+          "100 unidades"
+        ],
+        [
+          "Tallas",
+          "S, M, L, XL"
+        ],
+        [
+          "Uso",
+          "Examinación / no estéril"
+        ]
+      ],
       "delivery": "2–4 días hábiles",
       "published": true
     },
@@ -292,8 +500,28 @@
       "badge": null,
       "usage": "Nuevo",
       "description": "Conjunto de filipina y pantalón en tela antifluido, transpirable, disponible en varias tallas y colores institucionales.",
-      "images": ["#0B1B2B", "#00B39E"],
-      "specs": [["Tela", "Antifluido 65/35"], ["Piezas", "Filipina + pantalón"], ["Tallas", "XS a XXL"], ["Colores", "Bajo pedido institucional"]],
+      "images": [
+        "#0B1B2B",
+        "#00B39E"
+      ],
+      "specs": [
+        [
+          "Tela",
+          "Antifluido 65/35"
+        ],
+        [
+          "Piezas",
+          "Filipina + pantalón"
+        ],
+        [
+          "Tallas",
+          "XS a XXL"
+        ],
+        [
+          "Colores",
+          "Bajo pedido institucional"
+        ]
+      ],
       "delivery": "3–5 días hábiles",
       "published": true
     },
@@ -319,8 +547,28 @@
       "badge": "Nuevo",
       "usage": "Nuevo",
       "description": "DEA de uso público y clínico con instrucciones por voz, autoanálisis de ritmo y electrodos de fácil colocación.",
-      "images": ["#0057D9", "#00B39E"],
-      "specs": [["Guía", "Instrucciones por voz"], ["Electrodos", "Adulto / pediátrico"], ["Autonomía batería", "Hasta 300 descargas / 4 años standby"], ["Certificación", "Uso clínico y público"]],
+      "images": [
+        "#0057D9",
+        "#00B39E"
+      ],
+      "specs": [
+        [
+          "Guía",
+          "Instrucciones por voz"
+        ],
+        [
+          "Electrodos",
+          "Adulto / pediátrico"
+        ],
+        [
+          "Autonomía batería",
+          "Hasta 300 descargas / 4 años standby"
+        ],
+        [
+          "Certificación",
+          "Uso clínico y público"
+        ]
+      ],
       "delivery": "8–10 días hábiles",
       "published": true
     },
@@ -346,8 +594,28 @@
       "badge": null,
       "usage": "Nuevo",
       "description": "Camilla de exploración con respaldo ajustable, tapiz antibacterial y estructura metálica con acabado epóxico.",
-      "images": ["#0057D9", "#08131F"],
-      "specs": [["Respaldo", "Ajustable manual"], ["Capacidad", "160 kg"], ["Tapiz", "Antibacterial, sin costuras"], ["Rodapié", "Con papelera incluida"]],
+      "images": [
+        "#0057D9",
+        "#08131F"
+      ],
+      "specs": [
+        [
+          "Respaldo",
+          "Ajustable manual"
+        ],
+        [
+          "Capacidad",
+          "160 kg"
+        ],
+        [
+          "Tapiz",
+          "Antibacterial, sin costuras"
+        ],
+        [
+          "Rodapié",
+          "Con papelera incluida"
+        ]
+      ],
       "delivery": "6–9 días hábiles",
       "published": true
     },
@@ -373,8 +641,28 @@
       "badge": null,
       "usage": "Nuevo",
       "description": "Andador plegable en aluminio ligero con altura ajustable, ideal para rehabilitación y apoyo en el adulto mayor.",
-      "images": ["#00B39E", "#0B1B2B"],
-      "specs": [["Material", "Aluminio"], ["Peso", "2.1 kg"], ["Altura", "Ajustable, 5 posiciones"], ["Capacidad", "120 kg"]],
+      "images": [
+        "#00B39E",
+        "#0B1B2B"
+      ],
+      "specs": [
+        [
+          "Material",
+          "Aluminio"
+        ],
+        [
+          "Peso",
+          "2.1 kg"
+        ],
+        [
+          "Altura",
+          "Ajustable, 5 posiciones"
+        ],
+        [
+          "Capacidad",
+          "120 kg"
+        ]
+      ],
       "delivery": "3–5 días hábiles",
       "published": true
     }
@@ -431,6 +719,32 @@
       "rep": null,
       "createdAt": "2026-08-05",
       "productId": "p1"
+    },
+    {
+      "id": "lead_1785891047264_373",
+      "companyName": "Hospital Regional Altiplano",
+      "contactName": "Juan Pérez",
+      "email": "juan@hospitalaltiplano.gt",
+      "phone": "5555-5555",
+      "source": "Sitio web",
+      "status": "Nuevo",
+      "rep": null,
+      "createdAt": "2026-08-05",
+      "productId": "p1",
+      "note": "Necesito 8 unidades para el area de emergencias."
+    },
+    {
+      "id": "lead_1785891601582_470",
+      "companyName": "Hospital Regional Altiplano",
+      "contactName": "Diego Castillo",
+      "email": "haha@gmail.com",
+      "phone": "11111111",
+      "source": "Sitio web",
+      "status": "Nuevo",
+      "rep": null,
+      "createdAt": "2026-08-05",
+      "productId": "p1",
+      "note": "Cotizamelo"
     }
   ],
   "deals": [
@@ -462,6 +776,40 @@
       "rep": null,
       "createdAt": "2026-08-05",
       "leadId": "lead_1785888799756_90"
+    },
+    {
+      "id": "quote_1785891047265_146",
+      "companyName": "Hospital Regional Altiplano",
+      "contactName": "Juan Pérez",
+      "items": [
+        {
+          "productId": "p1",
+          "qty": 8,
+          "unitPrice": 12642.5
+        }
+      ],
+      "total": 101140,
+      "status": "Borrador",
+      "rep": null,
+      "createdAt": "2026-08-05",
+      "leadId": "lead_1785891047264_373"
+    },
+    {
+      "id": "quote_1785891601583_572",
+      "companyName": "Hospital Regional Altiplano",
+      "contactName": "Diego Castillo",
+      "items": [
+        {
+          "productId": "p1",
+          "qty": 2,
+          "unitPrice": 12642.5
+        }
+      ],
+      "total": 25285,
+      "status": "Borrador",
+      "rep": null,
+      "createdAt": "2026-08-05",
+      "leadId": "lead_1785891601582_470"
     }
   ],
   "movements": [

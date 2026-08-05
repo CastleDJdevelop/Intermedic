@@ -1,6 +1,8 @@
 import fs from "fs";
 import path from "path";
 import type { DB, Product, Lead, Quote, Deal, Movement, Warehouse } from "./types";
+import { totalStock, stockStatus, type StockStatus } from "./stock";
+export { totalStock, stockStatus, type StockStatus };
 
 /**
  * Almacenamiento basado en un archivo JSON. Sirve perfectamente para desarrollo
@@ -29,9 +31,6 @@ function newId(prefix: string): string {
   return `${prefix}_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
 }
 
-export function totalStock(product: Product): number {
-  return Object.values(product.warehouses).reduce((sum, qty) => sum + (qty ?? 0), 0);
-}
 
 /* =========================================================================
    CONEXIÓN 1 — Sitio web → CRM
