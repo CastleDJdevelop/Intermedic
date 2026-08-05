@@ -2,6 +2,7 @@
 
 import { Menu } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { GlobalSearch } from "./GlobalSearch";
 
 interface TopbarProps {
   dark: boolean;
@@ -15,6 +16,7 @@ export function Topbar({ dark, setDark, setMobileOpen }: TopbarProps) {
       <button onClick={() => setMobileOpen(true)} id="crm-menu-btn" className="im-btn-icon im-focus" style={{ width: 34, height: 34, display: "none" }} aria-label="Abrir menú">
         <Menu size={16} />
       </button>
+      <GlobalSearch />
       <div style={{ marginLeft: "auto" }}>
         <ThemeToggle dark={dark} setDark={setDark} />
       </div>

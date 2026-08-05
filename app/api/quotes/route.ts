@@ -23,6 +23,7 @@ export async function POST(req: Request) {
       items: body.items,
       rep: body.rep ?? null,
       leadId: body.leadId,
+      dealId: body.dealId,
     });
     return NextResponse.json(quote, { status: 201 });
   } catch (e: any) {

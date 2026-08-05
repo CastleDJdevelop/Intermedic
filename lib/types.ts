@@ -109,6 +109,9 @@ export interface Quote {
   id: string;
   companyName: string;
   contactName: string;
+  /** FK real cuando la cotización se creó desde el CRM (una Company/Contact ya conocidos). Ausente en las cotizaciones anónimas creadas desde el Sitio. */
+  companyId?: string;
+  contactId?: string;
   items: QuoteItem[];
   total: number;
   status: QuoteStatus;

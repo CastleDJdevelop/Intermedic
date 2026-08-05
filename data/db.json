@@ -706,16 +706,6 @@
       "companyId": "c2",
       "email": "esian@vidanueva.gt",
       "phone": "+502 4433 8890"
-    },
-    {
-      "id": "ct_1785895387559_302",
-      "name": "Prueba Fase2 Backend",
-      "role": "Contacto principal",
-      "companyId": "c1",
-      "email": "test.fase2@example.com",
-      "phone": "",
-      "lastContact": "2026-08-05",
-      "status": "Activo"
     }
   ],
   "leads": [
@@ -726,7 +716,7 @@
       "email": "",
       "source": "Sitio web",
       "status": "Nuevo",
-      "rep": "Marvin Say",
+      "rep": null,
       "createdAt": "2026-08-05",
       "productId": "p1"
     },
@@ -755,18 +745,6 @@
       "createdAt": "2026-08-05",
       "productId": "p1",
       "note": "Cotizamelo"
-    },
-    {
-      "id": "lead_1785892972665_464",
-      "companyName": "Hospital Regional Altiplano",
-      "contactName": "Prueba Fase2 Backend",
-      "email": "test.fase2@example.com",
-      "source": "Sitio web",
-      "status": "Calificado",
-      "rep": null,
-      "createdAt": "2026-08-05",
-      "productId": "p1",
-      "converted": true
     }
   ],
   "deals": [
@@ -779,17 +757,6 @@
       "stage": "Negociación",
       "rep": "Ana López",
       "closeDate": "2026-08-10"
-    },
-    {
-      "id": "deal_1785895387559_930",
-      "title": "Nuevo negocio — Hospital Regional Altiplano",
-      "companyId": "c1",
-      "contactId": "ct_1785895387559_302",
-      "value": 0,
-      "stage": "Prospección",
-      "rep": "",
-      "closeDate": "2026-09-04",
-      "leadId": "lead_1785892972665_464"
     }
   ],
   "quotes": [
@@ -843,23 +810,6 @@
       "rep": null,
       "createdAt": "2026-08-05",
       "leadId": "lead_1785891601582_470"
-    },
-    {
-      "id": "quote_1785892972665_483",
-      "companyName": "Hospital Regional Altiplano",
-      "contactName": "Prueba Fase2 Backend",
-      "items": [
-        {
-          "productId": "p1",
-          "qty": 3,
-          "unitPrice": 12642.5
-        }
-      ],
-      "total": 37928,
-      "status": "Borrador",
-      "rep": null,
-      "createdAt": "2026-08-05",
-      "leadId": "lead_1785892972665_464"
     }
   ],
   "movements": [

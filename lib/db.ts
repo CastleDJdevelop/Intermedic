@@ -48,6 +48,9 @@ export function createLeadFromQuoteRequest(input: {
   productId?: string;
   qty?: number;
   note?: string;
+  /** Por defecto "Sitio web" (comportamiento original, intacto). El CRM puede registrar un lead manual con otro origen. */
+  source?: Lead["source"];
+  rep?: string | null;
 }): { lead: Lead; quote: Quote | null } {
   const db = getDB();
 
@@ -57,9 +60,9 @@ export function createLeadFromQuoteRequest(input: {
     contactName: input.contactName,
     email: input.email,
     phone: input.phone,
-    source: "Sitio web",
+    source: input.source ?? "Sitio web",
     status: "Nuevo",
-    rep: null,
+    rep: input.rep ?? null,
     createdAt: new Date().toISOString().slice(0, 10),
     productId: input.productId,
     note: input.note,
@@ -239,6 +242,8 @@ export function createQuote(input: {
   items: { productId: string; qty: number; unitPrice?: number }[];
   rep?: string | null;
   leadId?: string;
+  /** Si viene de un Deal del Pipeline, vincula deal.quoteId → quote.id en la misma transacción (requisito de CRM → Inventario). */
+  dealId?: string;
 }): Quote {
   const db = getDB();
   const company = db.companies.find((c) => c.id === input.companyId);
@@ -259,6 +264,8 @@ export function createQuote(input: {
     id: newId("quote"),
     companyName: company.name,
     contactName: contact?.name ?? "—",
+    companyId: company.id,
+    contactId: contact?.id,
     items,
     total,
     status: "Borrador",
@@ -267,6 +274,13 @@ export function createQuote(input: {
     leadId: input.leadId,
   };
   db.quotes.push(quote);
+
+  if (input.dealId) {
+    const deal = db.deals.find((d) => d.id === input.dealId);
+    if (!deal) throw new Error("Negocio no encontrado para vincular la cotización");
+    deal.quoteId = quote.id;
+  }
+
   saveDB(db);
   return quote;
 }
