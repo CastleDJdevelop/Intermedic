@@ -373,6 +373,18 @@ export function updateTask(id: string, patch: Partial<Omit<Task, "id">>): Task {
   return task;
 }
 
+/* =========================================================================
+   LEADS — actualizar (por ahora solo el vendedor asignado)
+   ========================================================================= */
+export function updateLead(id: string, patch: Partial<Pick<Lead, "rep">>): Lead {
+  const db = getDB();
+  const lead = db.leads.find((l) => l.id === id);
+  if (!lead) throw new Error("Lead no encontrado");
+  Object.assign(lead, patch);
+  saveDB(db);
+  return lead;
+}
+
 export function toggleTaskDone(id: string): Task {
   const db = getDB();
   const task = db.tasks.find((t) => t.id === id);

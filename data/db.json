@@ -706,6 +706,16 @@
       "companyId": "c2",
       "email": "esian@vidanueva.gt",
       "phone": "+502 4433 8890"
+    },
+    {
+      "id": "ct_1785895387559_302",
+      "name": "Prueba Fase2 Backend",
+      "role": "Contacto principal",
+      "companyId": "c1",
+      "email": "test.fase2@example.com",
+      "phone": "",
+      "lastContact": "2026-08-05",
+      "status": "Activo"
     }
   ],
   "leads": [
@@ -716,7 +726,7 @@
       "email": "",
       "source": "Sitio web",
       "status": "Nuevo",
-      "rep": null,
+      "rep": "Marvin Say",
       "createdAt": "2026-08-05",
       "productId": "p1"
     },
@@ -752,10 +762,11 @@
       "contactName": "Prueba Fase2 Backend",
       "email": "test.fase2@example.com",
       "source": "Sitio web",
-      "status": "Nuevo",
+      "status": "Calificado",
       "rep": null,
       "createdAt": "2026-08-05",
-      "productId": "p1"
+      "productId": "p1",
+      "converted": true
     }
   ],
   "deals": [
@@ -768,6 +779,17 @@
       "stage": "Negociación",
       "rep": "Ana López",
       "closeDate": "2026-08-10"
+    },
+    {
+      "id": "deal_1785895387559_930",
+      "title": "Nuevo negocio — Hospital Regional Altiplano",
+      "companyId": "c1",
+      "contactId": "ct_1785895387559_302",
+      "value": 0,
+      "stage": "Prospección",
+      "rep": "",
+      "closeDate": "2026-09-04",
+      "leadId": "lead_1785892972665_464"
     }
   ],
   "quotes": [
