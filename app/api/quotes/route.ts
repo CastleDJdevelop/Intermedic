@@ -1,7 +1,31 @@
 import { NextResponse } from "next/server";
-import { getDB } from "@/lib/db";
+import { getDB, createQuote } from "@/lib/db";
 
 export async function GET() {
   const db = getDB();
   return NextResponse.json(db.quotes);
+}
+
+/**
+ * Cotización creada desde el CRM (a diferencia de POST /api/leads, que crea
+ * la cotización anónima del flujo Sitio → CRM). Requiere companyId real y
+ * al menos un producto real — nunca texto suelto.
+ */
+export async function POST(req: Request) {
+  const body = await req.json();
+  if (!body.companyId || !Array.isArray(body.items) || body.items.length === 0) {
+    return NextResponse.json({ error: "companyId e items[] son requeridos" }, { status: 400 });
+  }
+  try {
+    const quote = createQuote({
+      companyId: body.companyId,
+      contactId: body.contactId,
+      items: body.items,
+      rep: body.rep ?? null,
+      leadId: body.leadId,
+    });
+    return NextResponse.json(quote, { status: 201 });
+  } catch (e: any) {
+    return NextResponse.json({ error: e.message }, { status: 400 });
+  }
 }

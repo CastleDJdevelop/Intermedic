@@ -56,6 +56,9 @@ export interface Contact {
   companyId: string;
   email: string;
   phone: string;
+  /** Fecha del último contacto registrado (ISO), para mostrar actividad reciente en el CRM */
+  lastContact?: string;
+  status?: "Activo" | "Inactivo";
 }
 
 export type LeadStatus = "Nuevo" | "Contactado" | "Calificado" | "Descartado";
@@ -74,6 +77,8 @@ export interface Lead {
   /** Si vino de una solicitud de cotización del sitio web, referencia al producto */
   productId?: string;
   note?: string;
+  /** true una vez que se convirtió en Company + Contact + Deal — evita convertir el mismo lead dos veces */
+  converted?: boolean;
 }
 
 export type DealStage = "Prospección" | "Calificación" | "Propuesta enviada" | "Negociación" | "Ganado" | "Perdido";
@@ -88,6 +93,8 @@ export interface Deal {
   rep: string;
   closeDate: string;
   quoteId?: string;
+  /** Si el negocio nació de convertir un Lead, referencia al Lead original para trazabilidad */
+  leadId?: string;
 }
 
 export type QuoteStatus = "Borrador" | "Enviada" | "Aprobada" | "Rechazada" | "Vencida";
@@ -125,6 +132,21 @@ export interface Movement {
   user: string;
 }
 
+export type TaskType = "Llamada" | "Correo" | "Reunión" | "Seguimiento";
+export type TaskPriority = "Alta" | "Media" | "Baja";
+
+export interface Task {
+  id: string;
+  title: string;
+  type: TaskType;
+  /** Empresa relacionada, si ya existe como Company real (no se duplica el nombre como texto) */
+  companyId?: string;
+  due: string;
+  priority: TaskPriority;
+  rep: string;
+  done: boolean;
+}
+
 export type UserRole = "Administrador" | "Vendedor";
 
 export interface AppUser {
@@ -144,4 +166,5 @@ export interface DB {
   quotes: Quote[];
   movements: Movement[];
   users: AppUser[];
+  tasks: Task[];
 }

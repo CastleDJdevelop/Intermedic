@@ -745,6 +745,17 @@
       "createdAt": "2026-08-05",
       "productId": "p1",
       "note": "Cotizamelo"
+    },
+    {
+      "id": "lead_1785892972665_464",
+      "companyName": "Hospital Regional Altiplano",
+      "contactName": "Prueba Fase2 Backend",
+      "email": "test.fase2@example.com",
+      "source": "Sitio web",
+      "status": "Nuevo",
+      "rep": null,
+      "createdAt": "2026-08-05",
+      "productId": "p1"
     }
   ],
   "deals": [
@@ -810,6 +821,23 @@
       "rep": null,
       "createdAt": "2026-08-05",
       "leadId": "lead_1785891601582_470"
+    },
+    {
+      "id": "quote_1785892972665_483",
+      "companyName": "Hospital Regional Altiplano",
+      "contactName": "Prueba Fase2 Backend",
+      "items": [
+        {
+          "productId": "p1",
+          "qty": 3,
+          "unitPrice": 12642.5
+        }
+      ],
+      "total": 37928,
+      "status": "Borrador",
+      "rep": null,
+      "createdAt": "2026-08-05",
+      "leadId": "lead_1785892972665_464"
     }
   ],
   "movements": [
@@ -869,5 +897,6 @@
       "name": "Óscar Pineda",
       "role": "Vendedor"
     }
-  ]
+  ],
+  "tasks": []
 }
