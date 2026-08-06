@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "intermedic",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "C:\\Users\\USUARIO\\OneDrive - Universidad Rafael Landivar\\Documentos\\Intermedic", "run", "dev"],
+      "port": 3000
+    }
+  ]
+}

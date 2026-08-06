@@ -856,21 +856,21 @@
       "username": "rixchel",
       "name": "Rebeca Ixchel",
       "role": "Administrador",
-      "passwordHash": "99ad998a72811cebdbf73e6c3fa07e96:2b5f5b9e190ab6a8f33266660e909a0ce2e404a168a0f058de2d6688768445590fba52ecc45f98437cca6c85be5e2289d91600c426d27283b49e671b14dc9d01"
+      "passwordHash": "6296edb840a64b51780fe47171418e0d:5da62fb239e8a9566369c4d6787fbbc8532e5d6ed9deed74868e8103b43390431c095d6be8691f73324b5462db8aca4a66783d3eaa0106cef13decd2209eaa53"
     },
     {
       "id": "u2",
       "username": "msay",
       "name": "Marvin Say",
       "role": "Vendedor",
-      "passwordHash": "89a9307c2d646b506f385ae3b07989c6:ddb2f8ef0f63b53c5f02141452ce77bdb9836af72bf9c3a59cf8cb701bc8e8b0583852dc95acc794944f5a29aa333772959c77035a31e734d02c19e2b05afdbc"
+      "passwordHash": "6296edb840a64b51780fe47171418e0d:5da62fb239e8a9566369c4d6787fbbc8532e5d6ed9deed74868e8103b43390431c095d6be8691f73324b5462db8aca4a66783d3eaa0106cef13decd2209eaa53"
     },
     {
       "id": "u3",
       "username": "opineda",
       "name": "Óscar Pineda",
       "role": "Vendedor",
-      "passwordHash": "e32f163a7c65b90278bea6f4717fb5ee:6e3d3a22ec0459b4e42982c316584e327a1b1d2c0bfea57d8912c94256f425d568fb0ff1c5c5f9208d4d7f30c7f72ef2f8fa318241ff1dea07662e083e1e8f4a"
+      "passwordHash": "6296edb840a64b51780fe47171418e0d:5da62fb239e8a9566369c4d6787fbbc8532e5d6ed9deed74868e8103b43390431c095d6be8691f73324b5462db8aca4a66783d3eaa0106cef13decd2209eaa53"
     }
   ],
   "tasks": []
