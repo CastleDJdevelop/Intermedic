@@ -1,7 +1,8 @@
 import { neon } from "@neondatabase/serverless";
 import type {
   DB, Product, Company, Contact, Lead, Quote, QuoteItem, Deal, DealStage,
-  Movement, Warehouse, Task, TaskType, TaskPriority,
+  Movement, Warehouse, Task, TaskType, TaskPriority, Reservation, ReservationStatus,
+  Invoice, InvoiceStatus,
 } from "./types";
 import { totalStock, stockStatus, type StockStatus } from "./stock";
 import seedData from "../data/db.json";
@@ -568,4 +569,131 @@ export async function toggleTaskDone(id: string): Promise<Task> {
   task.done = !task.done;
   await saveDB(db);
   return task;
+}
+
+/* =========================================================================
+   RESERVACIONES
+   ========================================================================= */
+export async function createReservation(input: {
+  dealId: string;
+  companyId: string;
+  contactId?: string;
+  items: Array<{ productId: string; qty: number; unitPrice: number }>;
+  rep: string;
+  notes?: string;
+}): Promise<Reservation> {
+  const db = await getDB();
+  const deal = db.deals.find((d) => d.id === input.dealId);
+  if (!deal) throw new Error("Deal no encontrado");
+
+  // Validar stock disponible para reserva
+  for (const item of input.items) {
+    const product = db.products.find((p) => p.id === item.productId);
+    if (!product) throw new Error(`Producto ${item.productId} no encontrado`);
+    const totalStk = totalStock(product);
+    const reserved = db.reservations
+      .filter((r) => r.status !== "Cancelada")
+      .reduce((sum, r) => sum + (r.items.find((ri) => ri.productId === item.productId)?.qty ?? 0), 0);
+    const available = totalStk - reserved;
+    if (available < item.qty) {
+      throw new Error(`Stock insuficiente para ${product.name}: disponible ${available}, solicitado ${item.qty}`);
+    }
+  }
+
+  const now = new Date().toISOString();
+  const reservation: Reservation = {
+    id: newId("res"),
+    dealId: input.dealId,
+    companyId: input.companyId,
+    contactId: input.contactId,
+    items: input.items,
+    status: "Reservada",
+    createdAt: now,
+    updatedAt: now,
+    reservedUntil: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+    rep: input.rep,
+    notes: input.notes,
+  };
+
+  db.reservations.push(reservation);
+  await saveDB(db);
+  return reservation;
+}
+
+export async function updateReservationStatus(id: string, status: ReservationStatus): Promise<Reservation> {
+  const db = await getDB();
+  const reservation = db.reservations.find((r) => r.id === id);
+  if (!reservation) throw new Error("Reservación no encontrada");
+  reservation.status = status;
+  reservation.updatedAt = new Date().toISOString();
+  await saveDB(db);
+  return reservation;
+}
+
+export async function cancelReservation(id: string): Promise<Reservation> {
+  return updateReservationStatus(id, "Cancelada");
+}
+
+/* =========================================================================
+   INVOICES / FACTURAS
+   ========================================================================= */
+let lastInvoiceNumber = 0;
+
+function getNextInvoiceNumber(): string {
+  lastInvoiceNumber++;
+  return `FAC-${String(lastInvoiceNumber).padStart(6, "0")}`;
+}
+
+export async function createInvoice(input: {
+  dealId?: string;
+  reservationId?: string;
+  companyId: string;
+  contactId?: string;
+  companyName: string;
+  contactName: string;
+  items: Array<{ productId: string; description: string; qty: number; unitPrice: number }>;
+  rep: string;
+  notes?: string;
+}): Promise<Invoice> {
+  const db = await getDB();
+
+  const subtotal = input.items.reduce((sum, item) => sum + item.qty * item.unitPrice, 0);
+  const tax = Math.round(subtotal * 0.12); // IVA 12%
+  const total = subtotal + tax;
+
+  const invoice: Invoice = {
+    id: newId("inv"),
+    number: getNextInvoiceNumber(),
+    dealId: input.dealId,
+    reservationId: input.reservationId,
+    companyId: input.companyId,
+    contactId: input.contactId,
+    companyName: input.companyName,
+    contactName: input.contactName,
+    items: input.items.map((item) => ({
+      ...item,
+      subtotal: item.qty * item.unitPrice,
+    })),
+    subtotal,
+    tax,
+    total,
+    status: "Emitida",
+    createdAt: new Date().toISOString(),
+    dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10),
+    rep: input.rep,
+    notes: input.notes,
+  };
+
+  db.invoices.push(invoice);
+  await saveDB(db);
+  return invoice;
+}
+
+export async function updateInvoiceStatus(id: string, status: InvoiceStatus): Promise<Invoice> {
+  const db = await getDB();
+  const invoice = db.invoices.find((i) => i.id === id);
+  if (!invoice) throw new Error("Factura no encontrada");
+  invoice.status = status;
+  await saveDB(db);
+  return invoice;
 }

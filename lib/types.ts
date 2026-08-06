@@ -161,6 +161,58 @@ export interface AppUser {
   passwordHash: string;
 }
 
+export type ReservationStatus = "Reservada" | "Confirmada" | "En preparación" | "Despachada" | "Entregada" | "Cancelada";
+
+export interface ReservationItem {
+  productId: string;
+  qty: number;
+  unitPrice: number;
+}
+
+export interface Reservation {
+  id: string;
+  dealId: string;
+  companyId: string;
+  contactId?: string;
+  items: ReservationItem[];
+  status: ReservationStatus;
+  createdAt: string;
+  updatedAt: string;
+  reservedUntil: string; // ISO date, 24h desde createdAt
+  rep: string;
+  notes?: string;
+}
+
+export type InvoiceStatus = "Borrador" | "Emitida" | "Pagada" | "Anulada";
+
+export interface InvoiceItem {
+  productId: string;
+  description: string;
+  qty: number;
+  unitPrice: number;
+  subtotal: number;
+}
+
+export interface Invoice {
+  id: string;
+  number: string; // secuencial, ej. "FAC-001"
+  dealId?: string;
+  reservationId?: string;
+  companyId: string;
+  contactId?: string;
+  companyName: string;
+  contactName: string;
+  items: InvoiceItem[];
+  subtotal: number;
+  tax: number; // IVA 12% si aplica
+  total: number;
+  status: InvoiceStatus;
+  createdAt: string;
+  dueDate: string;
+  rep: string;
+  notes?: string;
+}
+
 /** Forma completa de data/db.json */
 export interface DB {
   products: Product[];
@@ -172,4 +224,6 @@ export interface DB {
   movements: Movement[];
   users: AppUser[];
   tasks: Task[];
+  reservations: Reservation[];
+  invoices: Invoice[];
 }

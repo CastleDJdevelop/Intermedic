@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  LayoutDashboard, UserPlus, Columns3, Building2, Users, FileText, CheckSquare, BarChart3, Activity, X,
+  LayoutDashboard, UserPlus, Columns3, Building2, Users, FileText, CheckSquare, BarChart3, Activity, X, BookmarkPlus, Receipt,
 } from "lucide-react";
 
 const NAV = [
@@ -14,6 +14,8 @@ const NAV = [
   { href: "/crm/contactos", label: "Contactos", icon: Users },
   { href: "/crm/cotizaciones", label: "Cotizaciones", icon: FileText },
   { href: "/crm/tareas", label: "Tareas", icon: CheckSquare },
+  { href: "/crm/reservas", label: "Reservas", icon: BookmarkPlus },
+  { href: "/crm/facturas", label: "Facturas", icon: Receipt },
   { href: "/crm/reportes", label: "Reportes", icon: BarChart3 },
 ];
 

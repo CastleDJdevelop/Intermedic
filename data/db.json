@@ -873,5 +873,7 @@
       "passwordHash": "6296edb840a64b51780fe47171418e0d:5da62fb239e8a9566369c4d6787fbbc8532e5d6ed9deed74868e8103b43390431c095d6be8691f73324b5462db8aca4a66783d3eaa0106cef13decd2209eaa53"
     }
   ],
-  "tasks": []
+  "tasks": [],
+  "reservations": [],
+  "invoices": []
 }
