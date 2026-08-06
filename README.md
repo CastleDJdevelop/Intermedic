@@ -3,17 +3,18 @@
 Sitio web (catálogo público) + CRM + Inventario sobre una misma base de datos
 en Postgres, con autenticación real por roles y checkout/agente por WhatsApp.
 
-## Estado actual
+## Estado actual — Todas las fases completadas
 
-| Parte | Estado |
+| Módulo | Estado |
 |---|---|
-| Sitio, CRM e Inventario conectados a una sola base de datos | ✅ Real |
-| Persistencia (`lib/db.ts`) | ✅ Postgres (Neon), funciona en Vercel |
-| Autenticación (usuario/contraseña + sesión firmada) | ✅ Real |
-| Roles (Administrador / Vendedor) con protección de páginas y API | ✅ Real |
-| Checkout por WhatsApp (wa.me) | ✅ Real, sin configuración adicional |
-| Agente automático de WhatsApp (WhatsApp Cloud API) | ✅ Código listo — requiere que tú configures la cuenta de Meta Business (ver `docs/WHATSAPP.md`) |
-| Migración a un esquema relacional completo (Prisma, tabla por entidad) | ⏳ Pendiente, no bloqueante — hoy la DB guarda el estado como JSONB versionado |
+| **Sitio web** | ✅ Catálogo público, búsqueda, filtros, favoritos, comparador, cotización |
+| **CRM** | ✅ Leads, Pipeline, Empresas, Contactos, Cotizaciones, Tareas, Reportes, **Reservas, Facturas** |
+| **Inventario** | ✅ Productos, Movimientos, Kardex, Bodegas, Categorías, Proveedores, Reportes |
+| **Autenticación** | ✅ Scrypt, sesiones, roles (Admin/Vendedor), permisos server-side |
+| **WhatsApp** | ✅ Checkout wa.me + Cloud API webhook (recibe mensajes, crea leads, responde con IA) |
+| **Usuarios** | ✅ Panel de administración, cambio de contraseña (Admin/User) |
+| **Base de datos** | ✅ data/db.json (dev) + Postgres/Neon (prod, JSONB versionado) |
+| **Desarrollo** | ✅ npm run build pasa, npm run dev funciona, middleware protege rutas |
 
 ## Cómo correrlo en local
 
@@ -62,14 +63,14 @@ Los tres usuarios de `data/db.json` tienen la misma contraseña temporal:
 | `msay` | Vendedor | `Intermedic2026!` |
 | `opineda` | Vendedor | `Intermedic2026!` |
 
-**Cámbialas antes de dar acceso real a tu equipo** — no hay todavía pantalla
-de "cambiar contraseña"; por ahora se cambia generando un nuevo hash con
-`node -e "console.log(require('./lib/auth.ts'))"` (o pídele a Claude Code que
-agregue esa pantalla) y actualizando `passwordHash` directamente en la fila
-de `app_state` en Postgres, o en `data/db.json` si vas a resembrar desde cero.
+**Cámbialas antes de dar acceso real a tu equipo**:
+- **Admin**: ve a CRM → Usuarios, selecciona el usuario, ingresa nueva contraseña y guarda.
+- **User**: en /crm/dashboard, click en tu usuario (arriba a la derecha) → "Cambiar contraseña".
 
-- **Administrador**: acceso completo (Sitio, CRM, Inventario, productos, costos, movimientos, Kardex).
-- **Vendedor**: CRM completo + puede registrar movimientos de tipo "Salida" (venta directa). No puede crear/editar productos, ni movimientos de Entrada/Transferencia/Ajuste, ni consultar Kardex.
+### Permisos por rol
+
+- **Administrador**: acceso completo (Sitio, CRM completo, Inventario, Reservas, Facturas, Usuarios). Puede cambiar contraseñas de otros usuarios.
+- **Vendedor**: acceso a CRM (leads, deals, empresas, contactos, cotizaciones, tareas, reservas, facturas). Puede registrar movimientos de tipo "Salida" (venta directa) en Inventario. No puede crear/editar productos, ni hacer Entrada/Transferencia/Ajuste, ni ver Kardex/costos.
 
 ## Carpeta `reference/`
 
