@@ -2,7 +2,7 @@ import { neon } from "@neondatabase/serverless";
 import type {
   DB, Product, Company, Contact, Lead, Quote, QuoteItem, Deal, DealStage,
   Movement, Warehouse, Task, TaskType, TaskPriority, Reservation, ReservationStatus,
-  Invoice, InvoiceStatus,
+  Invoice, InvoiceStatus, AppUser,
 } from "./types";
 import { totalStock, stockStatus, type StockStatus } from "./stock";
 import seedData from "../data/db.json";
@@ -696,4 +696,16 @@ export async function updateInvoiceStatus(id: string, status: InvoiceStatus): Pr
   invoice.status = status;
   await saveDB(db);
   return invoice;
+}
+
+/* =========================================================================
+   USUARIOS — administración
+   ========================================================================= */
+export async function updateUserPassword(userId: string, newPasswordHash: string): Promise<AppUser> {
+  const db = await getDB();
+  const user = db.users.find((u) => u.id === userId);
+  if (!user) throw new Error("Usuario no encontrado");
+  user.passwordHash = newPasswordHash;
+  await saveDB(db);
+  return user;
 }

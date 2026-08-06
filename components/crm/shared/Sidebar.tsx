@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  LayoutDashboard, UserPlus, Columns3, Building2, Users, FileText, CheckSquare, BarChart3, Activity, X, BookmarkPlus, Receipt,
+  LayoutDashboard, UserPlus, Columns3, Building2, Users, FileText, CheckSquare, BarChart3, Activity, X, BookmarkPlus, Receipt, Settings,
 } from "lucide-react";
 
 const NAV = [
@@ -17,6 +17,7 @@ const NAV = [
   { href: "/crm/reservas", label: "Reservas", icon: BookmarkPlus },
   { href: "/crm/facturas", label: "Facturas", icon: Receipt },
   { href: "/crm/reportes", label: "Reportes", icon: BarChart3 },
+  { href: "/crm/usuarios", label: "Usuarios", icon: Settings },
 ];
 
 interface SidebarProps {
