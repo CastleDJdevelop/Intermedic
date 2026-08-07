@@ -20,6 +20,9 @@ export interface Product {
   unit: string;
   /** Precio de venta al público, el que ve el sitio web */
   price: number | null;
+  /** Precio de oferta. Si está presente y es menor que price, el sitio
+      muestra price tachado y salePrice como precio vigente. */
+  salePrice?: number | null;
   /** Costo promedio ponderado, solo visible para Administrador en Inventario */
   costProm: number;
   ultimoCosto: number;

@@ -299,6 +299,7 @@ export async function updateProduct(id: string, patch: {
   stockMin?: number;
   stockMax?: number;
   published?: boolean;
+  salePrice?: number | null;
 }): Promise<Product> {
   const db = await getDB();
   const product = db.products.find((p) => p.id === id);
@@ -315,6 +316,18 @@ export async function updateProduct(id: string, patch: {
       throw new Error("El precio debe ser un número mayor o igual a 0");
     }
     product.price = patch.price;
+  }
+  if (patch.salePrice !== undefined) {
+    if (patch.salePrice !== null && patch.salePrice !== undefined) {
+      if (typeof patch.salePrice !== "number" || !Number.isFinite(patch.salePrice) || patch.salePrice < 0) {
+        throw new Error("El precio de oferta debe ser un número mayor o igual a 0");
+      }
+      const currentPrice = patch.price !== undefined ? patch.price : product.price;
+      if (currentPrice !== null && patch.salePrice >= currentPrice) {
+        throw new Error("El precio de oferta debe ser menor que el precio regular");
+      }
+    }
+    product.salePrice = patch.salePrice;
   }
   if (patch.costProm !== undefined) {
     if (typeof patch.costProm !== "number" || !Number.isFinite(patch.costProm) || patch.costProm < 0) {

@@ -25,6 +25,7 @@ export function ProductDetail({ product, onClose, onUpdated }: ProductDetailProp
 
   const [editing, setEditing] = useState(false);
   const [price, setPrice] = useState(product.price != null ? String(product.price) : "");
+  const [salePrice, setSalePrice] = useState(product.salePrice != null ? String(product.salePrice) : "");
   const [costProm, setCostProm] = useState(String(product.costProm));
   const [stockMin, setStockMin] = useState(String(product.stockMin));
   const [stockMax, setStockMax] = useState(String(product.stockMax));
@@ -56,6 +57,7 @@ export function ProductDetail({ product, onClose, onUpdated }: ProductDetailProp
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           price: price === "" ? null : Number(price),
+          salePrice: salePrice === "" ? null : Number(salePrice),
           costProm: Number(costProm),
           stockMin: Number(stockMin),
           stockMax: Number(stockMax),
@@ -97,9 +99,16 @@ export function ProductDetail({ product, onClose, onUpdated }: ProductDetailProp
           <div className="im-card" style={{ padding: 16, marginBottom: 18 }}>
             <div style={{ display: "flex", gap: 10, marginBottom: 10 }}>
               <div style={{ flex: 1 }}>
-                <label className="im-ink-soft" style={{ fontSize: 11.5, fontWeight: 600, marginBottom: 5, display: "block" }}>Precio (Q)</label>
+                <label className="im-ink-soft" style={{ fontSize: 11.5, fontWeight: 600, marginBottom: 5, display: "block" }}>Precio regular (Q)</label>
                 <input type="number" min="0" step="0.01" value={price} onChange={(e) => setPrice(e.target.value)} className="im-input im-focus" style={{ width: "100%", padding: "8px 10px", fontSize: 13 }} placeholder="Sin precio público" />
               </div>
+              <div style={{ flex: 1 }}>
+                <label className="im-ink-soft" style={{ fontSize: 11.5, fontWeight: 600, marginBottom: 5, display: "block" }}>Precio de oferta (Q)</label>
+                <input type="number" min="0" step="0.01" value={salePrice} onChange={(e) => setSalePrice(e.target.value)} className="im-input im-focus" style={{ width: "100%", padding: "8px 10px", fontSize: 13 }} placeholder="Dejar vacío para quitar oferta" />
+                <div className="im-ink-faint" style={{ fontSize: 10.5, marginTop: 3 }}>Debe ser menor que el precio regular.</div>
+              </div>
+            </div>
+            <div style={{ display: "flex", gap: 10, marginBottom: 10 }}>
               <div style={{ flex: 1 }}>
                 <label className="im-ink-soft" style={{ fontSize: 11.5, fontWeight: 600, marginBottom: 5, display: "block" }}>Costo promedio (Q)</label>
                 <input required type="number" min="0" step="0.01" value={costProm} onChange={(e) => setCostProm(e.target.value)} className="im-input im-focus" style={{ width: "100%", padding: "8px 10px", fontSize: 13 }} />
