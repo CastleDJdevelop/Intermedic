@@ -1,10 +1,12 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { Plus } from "lucide-react";
 import type { Product } from "@/lib/types";
 import { totalStock, stockStatus } from "@/lib/stock";
 import { useWarehouseFilter } from "@/components/inventory/shared/InventoryContext";
 import { ProductDetail } from "@/components/inventory/products/ProductDetail";
+import { NewProductModal } from "@/components/inventory/products/NewProductModal";
 
 const STATUS_LABEL: Record<string, string> = { in: "En stock", low: "Bajo mínimo", out: "Agotado" };
 const STATUS_COLOR: Record<string, string> = { in: "var(--teal)", low: "#C9600A", out: "var(--red)" };
@@ -22,6 +24,7 @@ export default function InventarioProductosPage() {
   const [error, setError] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [publishFilter, setPublishFilter] = useState<PublishFilter>("Todos");
+  const [showNewModal, setShowNewModal] = useState(false);
   const { warehouseFilter } = useWarehouseFilter();
 
   const load = useCallback(() => {
@@ -52,7 +55,10 @@ export default function InventarioProductosPage() {
             {visible.length} de {products.length} productos{warehouseFilter !== "Todas" ? <> · mostrando stock de <strong>{warehouseFilter}</strong></> : null}.
           </p>
         </div>
-        <div style={{ display: "flex", gap: 6 }}>
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+          <button onClick={() => setShowNewModal(true)} className="im-btn im-btn-primary im-focus" style={{ padding: "8px 14px", fontSize: 12.5, display: "flex", alignItems: "center", gap: 6 }}>
+            <Plus size={14} /> Nuevo producto
+          </button>
           {PUBLISH_FILTERS.map((f) => (
             <button
               key={f}
@@ -113,6 +119,18 @@ export default function InventarioProductosPage() {
           product={selected}
           onClose={() => setSelectedId(null)}
           onUpdated={load}
+        />
+      )}
+
+      {showNewModal && (
+        <NewProductModal
+          existingSkus={products.map((p) => p.sku)}
+          onClose={() => setShowNewModal(false)}
+          onCreated={(newProduct) => {
+            setProducts([...products, newProduct]);
+            setSelectedId(newProduct.id);
+            setShowNewModal(false);
+          }}
         />
       )}
     </div>
