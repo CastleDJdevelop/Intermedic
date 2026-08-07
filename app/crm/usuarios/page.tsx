@@ -1,25 +1,47 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import type { AppUser } from "@/lib/types";
 
 export default function UsuariosPage() {
+  const router = useRouter();
   const [users, setUsers] = useState<AppUser[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [newPassword, setNewPassword] = useState("");
+  const [showNewUserForm, setShowNewUserForm] = useState(false);
+  const [newUsername, setNewUsername] = useState("");
+  const [newName, setNewName] = useState("");
+  const [newRole, setNewRole] = useState<"Administrador" | "Vendedor">("Vendedor");
+  const [newUserPassword, setNewUserPassword] = useState("");
 
   useEffect(() => {
-    fetch("/api/users")
+    // Verificar que el usuario sea Administrador
+    fetch("/api/auth/me")
       .then((r) => {
-        if (!r.ok) throw new Error("Error al cargar usuarios");
+        if (!r.ok) throw new Error("No autenticado");
         return r.json();
       })
+      .then((me) => {
+        if (me.role !== "Administrador") {
+          router.push("/crm/dashboard?denied=1");
+          return;
+        }
+        // Cargar usuarios
+        return fetch("/api/users");
+      })
+      .then((r) => {
+        if (r && !r.ok) throw new Error("Error al cargar usuarios");
+        return r ? r.json() : null;
+      })
       .then((data) => {
-        setUsers(data.filter((u: AppUser) => ({ id: u.id, username: u.username, name: u.name, role: u.role })));
+        if (data) {
+          setUsers(data.filter((u: AppUser) => ({ id: u.id, username: u.username, name: u.name, role: u.role })));
+        }
       })
       .catch((e) => setError(e.message));
-  }, []);
+  }, [router]);
 
   if (error) return <div style={{ padding: 24, color: "#d65959" }}>Error: {error}</div>;
   if (!users) return <div style={{ padding: 24 }}>Cargando usuarios…</div>;
@@ -29,9 +51,140 @@ export default function UsuariosPage() {
     "Vendedor": "#00B39E",
   };
 
+  const handleCreateUser = async () => {
+    if (!newUsername || !newUserPassword) return;
+    try {
+      const res = await fetch("/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: newUsername,
+          name: newName || newUsername,
+          role: newRole,
+          password: newUserPassword,
+        }),
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Error al crear usuario");
+      }
+      // Recargar usuarios
+      const usersRes = await fetch("/api/users");
+      const data = await usersRes.json();
+      setUsers(data);
+      // Limpiar formulario
+      setNewUsername("");
+      setNewName("");
+      setNewRole("Vendedor");
+      setNewUserPassword("");
+      setShowNewUserForm(false);
+    } catch (e) {
+      alert(`Error: ${e instanceof Error ? e.message : "Desconocido"}`);
+    }
+  };
+
   return (
     <div>
-      <h1 style={{ fontSize: 23, fontWeight: 700, marginBottom: 22 }}>Usuarios</h1>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 22 }}>
+        <h1 style={{ fontSize: 23, fontWeight: 700, margin: 0 }}>Usuarios</h1>
+        <button
+          onClick={() => setShowNewUserForm(true)}
+          style={{
+            padding: "8px 16px",
+            background: "#0057D9",
+            color: "#fff",
+            border: "none",
+            borderRadius: 4,
+            cursor: "pointer",
+            fontSize: 13,
+            fontWeight: 600,
+          }}
+        >
+          + Nuevo usuario
+        </button>
+      </div>
+
+      {showNewUserForm && (
+        <div style={{ marginBottom: 24, padding: 16, border: "1px solid #ddd", borderRadius: 8, background: "#f9f9f9" }}>
+          <h2 style={{ fontSize: 16, fontWeight: 600, marginBottom: 12 }}>Crear nuevo usuario</h2>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
+            <div>
+              <label style={{ fontSize: 12, fontWeight: 600, display: "block", marginBottom: 4 }}>Usuario</label>
+              <input
+                type="text"
+                placeholder="username"
+                value={newUsername}
+                onChange={(e) => setNewUsername(e.target.value)}
+                style={{ width: "100%", padding: "8px 10px", borderRadius: 4, border: "1px solid #ddd", fontSize: 13, boxSizing: "border-box" }}
+              />
+            </div>
+            <div>
+              <label style={{ fontSize: 12, fontWeight: 600, display: "block", marginBottom: 4 }}>Nombre</label>
+              <input
+                type="text"
+                placeholder="Nombre completo"
+                value={newName}
+                onChange={(e) => setNewName(e.target.value)}
+                style={{ width: "100%", padding: "8px 10px", borderRadius: 4, border: "1px solid #ddd", fontSize: 13, boxSizing: "border-box" }}
+              />
+            </div>
+            <div>
+              <label style={{ fontSize: 12, fontWeight: 600, display: "block", marginBottom: 4 }}>Contraseña</label>
+              <input
+                type="password"
+                placeholder="Mínimo 8 caracteres"
+                value={newUserPassword}
+                onChange={(e) => setNewUserPassword(e.target.value)}
+                style={{ width: "100%", padding: "8px 10px", borderRadius: 4, border: "1px solid #ddd", fontSize: 13, boxSizing: "border-box" }}
+              />
+            </div>
+            <div>
+              <label style={{ fontSize: 12, fontWeight: 600, display: "block", marginBottom: 4 }}>Rol</label>
+              <select
+                value={newRole}
+                onChange={(e) => setNewRole(e.target.value as "Administrador" | "Vendedor")}
+                style={{ width: "100%", padding: "8px 10px", borderRadius: 4, border: "1px solid #ddd", fontSize: 13, boxSizing: "border-box" }}
+              >
+                <option value="Vendedor">Vendedor</option>
+                <option value="Administrador">Administrador</option>
+              </select>
+            </div>
+          </div>
+          <div style={{ display: "flex", gap: 8 }}>
+            <button
+              onClick={handleCreateUser}
+              disabled={!newUsername || !newUserPassword}
+              style={{
+                padding: "8px 16px",
+                background: "#00A854",
+                color: "#fff",
+                border: "none",
+                borderRadius: 4,
+                cursor: "pointer",
+                fontSize: 13,
+                fontWeight: 600,
+                opacity: !newUsername || !newUserPassword ? 0.5 : 1,
+              }}
+            >
+              Crear
+            </button>
+            <button
+              onClick={() => setShowNewUserForm(false)}
+              style={{
+                padding: "8px 16px",
+                background: "#f0f0f0",
+                color: "#333",
+                border: "none",
+                borderRadius: 4,
+                cursor: "pointer",
+                fontSize: 13,
+              }}
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      )}
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
         <div>
@@ -113,7 +266,7 @@ export default function UsuariosPage() {
                       onClick={() => {
                         if (!newPassword) return;
                         fetch(`/api/users/${u.id}/password`, {
-                          method: "PUT",
+                          method: "POST",
                           headers: { "Content-Type": "application/json" },
                           body: JSON.stringify({ newPassword }),
                         })

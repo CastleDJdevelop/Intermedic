@@ -1,58 +1,39 @@
 import { NextResponse } from "next/server";
+import { getDB, saveDB } from "@/lib/db";
+import { hashPassword } from "@/lib/auth";
 import { requireRole } from "@/lib/authz";
-import { hashPassword, getSession } from "@/lib/auth";
-import { updateUserPassword } from "@/lib/db";
 
-/**
- * Cambiar contraseña de un usuario.
- * - Administrador: puede cambiar cualquier contraseña
- * - Usuario regular: solo puede cambiar su propia contraseña (y debe verificar old)
- */
-export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
-  const session = await getSession();
-  if (!session) {
-    return NextResponse.json({ error: "No autenticado" }, { status: 401 });
-  }
-
+/** Cambiar contraseña de usuario. Solo Administrador. */
+export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const body = await req.json().catch(() => ({}));
+  const auth = await requireRole(["Administrador"]);
+  if (auth instanceof NextResponse) return auth;
 
-  // Si es Administrador, puede cambiar cualquier contraseña sin validar la actual
-  if (session.role === "Administrador") {
-    if (!body.newPassword) {
-      return NextResponse.json({ error: "newPassword es requerido" }, { status: 400 });
-    }
-    try {
-      const hash = hashPassword(body.newPassword);
-      const user = await updateUserPassword(id, hash);
-      return NextResponse.json({ id: user.id, username: user.username, name: user.name, role: user.role });
-    } catch (e: any) {
-      return NextResponse.json({ error: e.message }, { status: 409 });
-    }
+  const body = await req.json();
+  const db = await getDB();
+
+  // Validar contraseña
+  if (!body.newPassword || typeof body.newPassword !== "string") {
+    return NextResponse.json({ error: "Nueva contraseña requerida" }, { status: 400 });
   }
-
-  // Usuario regular: solo puede cambiar su propia, verificando la contraseña actual
-  if (id !== session.userId) {
+  if (body.newPassword.length < 8) {
     return NextResponse.json(
-      { error: "No autorizado: solo puedes cambiar tu propia contraseña" },
-      { status: 403 }
-    );
-  }
-
-  if (!body.currentPassword || !body.newPassword) {
-    return NextResponse.json(
-      { error: "currentPassword y newPassword son requeridos" },
+      { error: "Contraseña debe tener mínimo 8 caracteres" },
       { status: 400 }
     );
   }
 
-  try {
-    // Para verificar la actual, necesitaría la BD entera
-    // Por ahora, lo delegamos al cliente — en producción se haría server-side
-    const hash = hashPassword(body.newPassword);
-    const user = await updateUserPassword(id, hash);
-    return NextResponse.json({ id: user.id, username: user.username, name: user.name, role: user.role });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 409 });
+  // Encontrar usuario
+  const user = db.users.find((u) => u.id === id);
+  if (!user) {
+    return NextResponse.json({ error: "Usuario no encontrado" }, { status: 404 });
   }
+
+  // Actualizar contraseña
+  user.passwordHash = hashPassword(body.newPassword);
+  await saveDB(db);
+
+  // Respuesta de éxito — NUNCA incluye passwordHash
+  const { passwordHash, ...safeUser } = user;
+  return NextResponse.json({ success: true, user: safeUser });
 }
