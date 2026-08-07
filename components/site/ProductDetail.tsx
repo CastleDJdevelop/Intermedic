@@ -4,7 +4,7 @@ import { useState } from "react";
 import { X, Heart, Truck, Package, FileText, Download } from "lucide-react";
 import type { Product } from "@/lib/types";
 import { stockStatus } from "@/lib/stock";
-import { catIcon, formatQ } from "./data";
+import { catIcon, formatQ, getPriceDisplay } from "./data";
 import { ProductVisual } from "./shared";
 
 function badgeClass(badge: Product["badge"]) {
@@ -45,7 +45,18 @@ export function ProductDetail({ product, onClose, isFav, toggleFav, openQuote, r
         </div>
         <h2 className="im-display" style={{ fontSize: 22, fontWeight: 700, marginBottom: 4 }}>{product.name}</h2>
         <div className="im-ink-faint im-mono" style={{ fontSize: 12, marginBottom: 10 }}>SKU {product.sku}</div>
-        <div className="im-mono" style={{ fontSize: 20, fontWeight: 700, marginBottom: 20 }}>{product.price ? formatQ(product.price) : "Precio bajo cotización"}</div>
+        <div style={{ marginBottom: 20 }}>
+          {product.price ? (
+            <>
+              {getPriceDisplay(product).isOnSale && (
+                <div className="im-mono" style={{ fontSize: 14, color: "var(--ink-soft)", textDecoration: "line-through", marginBottom: 4 }}>{formatQ(getPriceDisplay(product).originalPrice!)}</div>
+              )}
+              <div className="im-mono" style={{ fontSize: 20, fontWeight: 700, color: getPriceDisplay(product).isOnSale ? "var(--red, #d65959)" : "inherit" }}>{formatQ(getPriceDisplay(product).displayPrice!)}</div>
+            </>
+          ) : (
+            <div className="im-mono" style={{ fontSize: 20, fontWeight: 700 }}>Precio bajo cotización</div>
+          )}
+        </div>
 
         <div style={{ display: "flex", gap: 10, marginBottom: 22 }}>
           <button onClick={() => openQuote(product)} className="im-btn im-btn-primary im-focus" style={{ flex: 1, padding: "12px", fontSize: 14 }}>Solicitar cotización</button>

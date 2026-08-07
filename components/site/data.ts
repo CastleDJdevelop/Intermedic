@@ -83,3 +83,14 @@ export const FAQS = [
 ];
 
 export const formatQ = (n: number) => `Q ${n.toLocaleString("es-GT")}`;
+
+import type { Product } from "@/lib/types";
+
+export function getPriceDisplay(p: Product) {
+  const hasValidSale = p.salePrice !== null && p.salePrice !== undefined && p.price !== null && p.salePrice < p.price;
+  return {
+    displayPrice: hasValidSale ? p.salePrice : p.price,
+    originalPrice: hasValidSale ? p.price : null,
+    isOnSale: hasValidSale,
+  };
+}

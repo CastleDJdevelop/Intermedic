@@ -123,7 +123,11 @@ export async function createLeadFromQuoteRequest(input: {
     const product = db.products.find((p) => p.id === input.productId);
     if (product) {
       const qty = input.qty && input.qty > 0 ? input.qty : 1;
-      const unitPrice = product.price ?? product.costProm * 1.3; // margen estimado si no hay precio público
+      // Usar salePrice si existe y es válido; si no, usar price; si no hay precio público, usar margen estimado
+      const finalPrice = product.salePrice !== null && product.salePrice !== undefined && product.price !== null && product.salePrice < product.price
+        ? product.salePrice
+        : product.price ?? product.costProm * 1.3;
+      const unitPrice = finalPrice;
       quote = {
         id: newId("quote"),
         companyName: input.companyName,
@@ -431,7 +435,14 @@ export async function createQuote(input: {
   const items: QuoteItem[] = input.items.map((it) => {
     const product = db.products.find((p) => p.id === it.productId);
     if (!product) throw new Error(`Producto no encontrado: ${it.productId}`);
-    const unitPrice = it.unitPrice ?? product.price ?? product.costProm * 1.3;
+    // Si el usuario especifica unitPrice, usarlo. Si no, usar salePrice si existe; si no, price; si no hay precio público, margen estimado.
+    let unitPrice = it.unitPrice;
+    if (unitPrice === undefined) {
+      const finalPrice = product.salePrice !== null && product.salePrice !== undefined && product.price !== null && product.salePrice < product.price
+        ? product.salePrice
+        : product.price ?? product.costProm * 1.3;
+      unitPrice = finalPrice;
+    }
     return { productId: it.productId, qty: it.qty, unitPrice };
   });
   const total = Math.round(items.reduce((sum, it) => sum + it.qty * it.unitPrice, 0));

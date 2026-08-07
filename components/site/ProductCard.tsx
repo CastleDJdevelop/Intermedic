@@ -3,7 +3,7 @@
 import { Heart, Scale, ArrowRight } from "lucide-react";
 import type { Product } from "@/lib/types";
 import { stockStatus } from "@/lib/stock";
-import { catIcon, formatQ } from "./data";
+import { catIcon, formatQ, getPriceDisplay } from "./data";
 import { ProductVisual, StockBadge, SectionHeading } from "./shared";
 
 function badgeClass(badge: Product["badge"]) {
@@ -41,7 +41,18 @@ export function ProductCard({ p, onOpen, isFav, toggleFav, isCompare, toggleComp
           <div className="im-ink-faint" style={{ fontSize: 12.5 }}>{p.usage} <StockBadge status={status} /></div>
         </div>
         <div style={{ textAlign: "right", flexShrink: 0 }}>
-          <div className="im-mono" style={{ fontSize: 15, fontWeight: 600, marginBottom: 8 }}>{p.price ? formatQ(p.price) : "Cotizar"}</div>
+          <div style={{ marginBottom: 8 }}>
+            {p.price ? (
+              <>
+                {getPriceDisplay(p).isOnSale && (
+                  <div className="im-mono" style={{ fontSize: 13, color: "var(--ink-soft)", textDecoration: "line-through", marginBottom: 2 }}>{formatQ(getPriceDisplay(p).originalPrice!)}</div>
+                )}
+                <div className="im-mono" style={{ fontSize: 15, fontWeight: 600, color: getPriceDisplay(p).isOnSale ? "var(--red, #d65959)" : "inherit" }}>{formatQ(getPriceDisplay(p).displayPrice!)}</div>
+              </>
+            ) : (
+              <div className="im-mono" style={{ fontSize: 15, fontWeight: 600 }}>Cotizar</div>
+            )}
+          </div>
           <div style={{ display: "flex", gap: 6, justifyContent: "flex-end" }}>
             <button onClick={() => toggleFav(p.id)} className={`im-btn-icon im-focus ${isFav ? "active" : ""}`} style={{ width: 32, height: 32 }} aria-label="Favorito"><Heart size={14} fill={isFav ? "currentColor" : "none"} /></button>
             <button onClick={() => toggleCompare(p.id)} className={`im-btn-icon im-focus ${isCompare ? "active" : ""}`} style={{ width: 32, height: 32 }} aria-label="Comparar"><Scale size={14} /></button>
@@ -66,7 +77,18 @@ export function ProductCard({ p, onOpen, isFav, toggleFav, isCompare, toggleComp
         <div className="im-ink-faint" style={{ fontSize: 11.5, marginBottom: 10 }}>{p.usage} <StockBadge status={status} /></div>
       </div>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: 8, borderTop: "1px solid var(--line)" }}>
-        <span className="im-mono" style={{ fontSize: 14.5, fontWeight: 600 }}>{p.price ? formatQ(p.price) : "Cotizar"}</span>
+        <div>
+          {p.price ? (
+            <>
+              {getPriceDisplay(p).isOnSale && (
+                <div className="im-mono" style={{ fontSize: 12, color: "var(--ink-soft)", textDecoration: "line-through", marginBottom: 2 }}>{formatQ(getPriceDisplay(p).originalPrice!)}</div>
+              )}
+              <span className="im-mono" style={{ fontSize: 14.5, fontWeight: 600, color: getPriceDisplay(p).isOnSale ? "var(--red, #d65959)" : "inherit" }}>{formatQ(getPriceDisplay(p).displayPrice!)}</span>
+            </>
+          ) : (
+            <span className="im-mono" style={{ fontSize: 14.5, fontWeight: 600 }}>Cotizar</span>
+          )}
+        </div>
         <button onClick={() => toggleCompare(p.id)} className={`im-btn-icon im-focus ${isCompare ? "active" : ""}`} style={{ width: 30, height: 30 }} aria-label="Comparar"><Scale size={13} /></button>
       </div>
     </div>

@@ -2,7 +2,7 @@
 
 import { X, Scale } from "lucide-react";
 import type { Product } from "@/lib/types";
-import { catIcon, formatQ } from "./data";
+import { catIcon, formatQ, getPriceDisplay } from "./data";
 import { ProductVisual } from "./shared";
 
 interface CompareBarProps {
@@ -61,7 +61,23 @@ export function CompareModal({ products, ids, onClose }: { products: Product[]; 
             <tbody>
               <tr className="im-border-b">
                 <td className="im-ink-faint" style={{ fontSize: 12.5, padding: "10px 0" }}>Precio</td>
-                {items.map((it) => <td key={it.id} className="im-mono" style={{ fontSize: 13, padding: "10px 12px", fontWeight: 600 }}>{it.price ? formatQ(it.price) : "Cotizar"}</td>)}
+                {items.map((it) => {
+                  const priceDisplay = getPriceDisplay(it);
+                  return (
+                    <td key={it.id} className="im-mono" style={{ fontSize: 13, padding: "10px 12px", fontWeight: 600 }}>
+                      {it.price ? (
+                        <>
+                          {priceDisplay.isOnSale && (
+                            <div style={{ fontSize: 11, color: "var(--ink-soft)", textDecoration: "line-through", marginBottom: 2 }}>{formatQ(priceDisplay.originalPrice!)}</div>
+                          )}
+                          <div style={{ color: priceDisplay.isOnSale ? "var(--red, #d65959)" : "inherit" }}>{formatQ(priceDisplay.displayPrice!)}</div>
+                        </>
+                      ) : (
+                        "Cotizar"
+                      )}
+                    </td>
+                  );
+                })}
               </tr>
               <tr className="im-border-b">
                 <td className="im-ink-faint" style={{ fontSize: 12.5, padding: "10px 0" }}>Marca</td>
