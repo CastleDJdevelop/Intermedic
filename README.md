@@ -55,17 +55,10 @@ no requiere API.
 
 ## Usuarios de acceso (CRM / Inventario)
 
-Los tres usuarios de `data/db.json` tienen la misma contraseña temporal:
-
-| Usuario | Rol | Contraseña |
-|---|---|---|
-| `rixchel` | Administrador | `Intermedic2026!` |
-| `msay` | Vendedor | `Intermedic2026!` |
-| `opineda` | Vendedor | `Intermedic2026!` |
-
-**Cámbialas antes de dar acceso real a tu equipo**:
-- **Admin**: ve a CRM → Usuarios, selecciona el usuario, ingresa nueva contraseña y guarda.
-- **User**: en /crm/dashboard, click en tu usuario (arriba a la derecha) → "Cambiar contraseña".
+La plataforma trae tres usuarios pre-configurados (rixchel, msay, opineda) con roles predefinidos.
+Para cambiar contraseñas o crear nuevos usuarios:
+- **Administrador**: CRM → Usuarios (panel de gestión completo)
+- **Usuario individual**: tu avatar → Cambiar contraseña (próximamente)
 
 ### Permisos por rol
 
