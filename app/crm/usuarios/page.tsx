@@ -24,7 +24,7 @@ export default function UsuariosPage() {
         return r.json();
       })
       .then((me) => {
-        if (me.role !== "Administrador") {
+        if (me.user?.role !== "Administrador") {
           router.push("/crm/dashboard?denied=1");
           return;
         }
